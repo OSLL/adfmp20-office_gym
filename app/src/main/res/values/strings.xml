@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">OfficeGym</string>
+    <string name="title_home">Home</string>
+    <string name="profile_text">This is profile fragment.</string>
+    <string name="title_profile">Profile</string>
+    <string name="alarm_text">This is alarm fragment.</string>
+    <string name="title_alarm">Alarm</string>
+    <string name="statistics_text">This is statistics fragment.</string>
+    <string name="title_statistics">Statistics</string>
+</resources>
