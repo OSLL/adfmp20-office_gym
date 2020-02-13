@@ -1,19 +1,26 @@
 package ru.adfmp.officegym.database
 
-import android.content.Context
+class DatabaseController(private val gymDao: GymDao) {
 
-class DatabaseController(context: Context) {
-    private val db = AppDatabase.getInstance(context).dao()
+    companion object {
+        @Volatile
+        private var instance: DatabaseController? = null
 
-    suspend fun insertExercise(exercise: Exercise) = db.insert(exercise)
+        fun getInstance(gymDao: GymDao) =
+            instance ?: synchronized(this) {
+                instance ?: DatabaseController(gymDao).also { instance = it }
+            }
+    }
+
+    suspend fun insertExercise(exercise: Exercise) = gymDao.insert(exercise)
 
     suspend fun insertWorkout(workoutInfo: WorkoutInfo) =
-        db.insert(workoutInfo)
+        gymDao.insert(workoutInfo)
 
     suspend fun insertExerciseInWorkout(exerciseInWorkout: ExerciseInWorkout) =
-        db.insert(exerciseInWorkout)
+        gymDao.insert(exerciseInWorkout)
 
-    fun getAllExercises() = db.getAllExercises()
+    fun getAllExercises() = gymDao.getAllExercises()
 
-    fun getAllWorkouts() = db.getAllWorkouts()
+    fun getAllWorkouts() = gymDao.getAllWorkouts()
 }
