@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Squat",
+    "description": "Stand up. Keep your feet slightly wider than shoulder-width and arms straight forward to help your balance. Hold the phone in your hand screen down. Pretend as though you are going to sit back in a chair. Keep your heels on the ground. Pull in your abs. Keep your back straight in a neutral position throughout the exercise.",
+    "intensity": 7,
+    "duration": 3
+  },
+  {
+    "name": "Breathing",
+    "description": "Lie on the sofa, take a deep breath, hold your breath 20 seconds then breath frequently 20 seconds.",
+    "intensity": 2,
+    "duration": 5
+  },
+  {
+    "name": "Upper body rotation",
+    "description": "Stand up. Take your arms up to the side. Hold the phone in your hand screen down. Start upper bode rotations to the left/right.",
+    "intensity": 6,
+    "duration": 3
+  }
+]
