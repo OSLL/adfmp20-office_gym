@@ -38,7 +38,7 @@ class AppDatabaseTest {
             gymDao.insert(exercise)
         }
 
-        val allExercises = getValue(gymDao.getAllExercises())
+        val allExercises = getValue(gymDao.getAllBaseExercises())
         Assert.assertEquals(exercises.size, allExercises.size)
         Assert.assertEquals(
             exercises.map { exercise -> exercise.name }.toSet(),
@@ -56,7 +56,7 @@ class AppDatabaseTest {
         for ((id, exercise) in exercises.withIndex()) {
             Assert.assertEquals(
                 exercise.name,
-                getValue(gymDao.getExerciseById(id.toLong() + 1))!!.name
+                getValue(gymDao.getBaseExerciseById(id.toLong() + 1))!!.name
             )
         }
     }
@@ -98,22 +98,40 @@ class AppDatabaseTest {
             gymDao.insert(workout)
         }
 
-        var exercises = buildExercises(5)
-        for (exercise in exercises) {
+        var baseExercises = buildExercises(5)
+        for (exercise in baseExercises) {
             gymDao.insert(exercise)
         }
 
-        exercises = getValue(gymDao.getAllExercises())
+        baseExercises = getValue(gymDao.getAllBaseExercises())
 
-        gymDao.insert(ExerciseInWorkout(duration = 2, workoutId = 1, exerciseId = exercises[0].id))
-        gymDao.insert(ExerciseInWorkout(duration = 2, workoutId = 1, exerciseId = exercises[1].id))
-        gymDao.insert(ExerciseInWorkout(duration = 2, workoutId = 1, exerciseId = exercises[2].id))
+        gymDao.insert(
+            ExerciseInWorkout(
+                duration = 2,
+                workoutId = 1,
+                exerciseId = baseExercises[0].id
+            )
+        )
+        gymDao.insert(
+            ExerciseInWorkout(
+                duration = 2,
+                workoutId = 1,
+                exerciseId = baseExercises[1].id
+            )
+        )
+        gymDao.insert(
+            ExerciseInWorkout(
+                duration = 2,
+                workoutId = 1,
+                exerciseId = baseExercises[2].id
+            )
+        )
 
-        val exerciseInWorkout = getValue(gymDao.getWorkoutById(1))!!.exercises
-        Assert.assertEquals(3, exerciseInWorkout.size)
+        val exercises = getValue(gymDao.getWorkoutById(1))!!.exercises
+        Assert.assertEquals(3, exercises.size)
         Assert.assertEquals(
-            setOf(exercises[0].id, exercises[1].id, exercises[2].id),
-            exerciseInWorkout.map { exercise -> exercise.exerciseId }.toSet()
+            setOf(baseExercises[0].id, baseExercises[1].id, baseExercises[2].id),
+            exercises.map { exercise -> exercise.baseId }.toSet()
         )
     }
 

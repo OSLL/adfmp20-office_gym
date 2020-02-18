@@ -3,10 +3,11 @@ package ru.adfmp.officegym.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import ru.adfmp.officegym.database.converters.Converters
+import ru.adfmp.officegym.database.converters.Converters.DayOfWeek
 
 
 @Entity(indices = [Index(value = ["name"], unique = true)])
-data class Exercise(
+data class BaseExercise(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     var name: String,
@@ -19,7 +20,7 @@ data class Exercise(
 @Entity(
     foreignKeys = [
         ForeignKey(
-            entity = Exercise::class,
+            entity = BaseExercise::class,
             parentColumns = ["id"],
             childColumns = ["exercise_id"],
             onDelete = ForeignKey.CASCADE
@@ -37,9 +38,9 @@ data class ExerciseInWorkout(
     val id: Long = 0,
     var duration: Int,
     @ColumnInfo(name = "exercise_id")
-    val exerciseId: Long,
+    var exerciseId: Long,
     @ColumnInfo(name = "workout_id")
-    val workoutId: Long
+    var workoutId: Long
 )
 
 @Entity(indices = [Index(value = ["name"], unique = true)])
@@ -56,7 +57,7 @@ data class Workout(
         parentColumn = "id",
         entityColumn = "workout_id"
     )
-    val exercises: List<ExerciseInWorkout>
+    var exercises: List<Exercise>
 )
 
 @Entity
@@ -87,11 +88,32 @@ data class Alarm(
     @ColumnInfo(name = "workout_id")
     val workoutId: Long,
     @TypeConverters(Converters::class)
-    var days: Array<Boolean> = Array(7, { i -> false }),
+    var days: Map<DayOfWeek, Boolean> = DayOfWeek.values().associate { it to false },
     var start: Int,
     var repeat: Boolean,
     var frequency: Int? = null,
     var finish: Int? = null
+)
+
+@DatabaseView(
+    """
+    SELECT baseExercise.id AS base_id, exerciseInWorkout.id AS id, baseExercise.name, baseExercise.intensity,
+    baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id
+    FROM exerciseInWorkout
+    JOIN baseExercise ON exerciseInWorkout.exercise_id = baseExercise.id
+    """
+)
+data class Exercise(
+    @ColumnInfo(name = "base_id")
+    val baseId: Long = 0,
+    val id: Long = 0,
+    val name: String?,
+    var intensity: Int,
+    @ColumnInfo(name = "recommended_duration")
+    var recommendedDuration: Int,
+    var duration: Int,
+    @ColumnInfo(name = "workout_id")
+    val workoutId: Long
 )
 
 @Dao
@@ -100,19 +122,22 @@ interface GymDao {
     /** Exercise queries. */
 
     @Insert
-    suspend fun insert(vararg exercise: Exercise)
+    suspend fun insert(vararg baseExercise: BaseExercise)
 
     @Update
-    suspend fun update(vararg exercise: Exercise)
+    suspend fun update(vararg baseExercise: BaseExercise)
 
     @Delete
-    suspend fun delete(exercise: Exercise)
+    suspend fun delete(baseExercise: BaseExercise)
 
-    @Query("SELECT * FROM Exercise WHERE id = :id")
-    fun getExerciseById(id: Long): LiveData<Exercise?>
+    @Query("SELECT * FROM BaseExercise WHERE id = :id")
+    fun getBaseExerciseById(id: Long): LiveData<BaseExercise?>
+
+    @Query("SELECT * FROM BaseExercise")
+    fun getAllBaseExercises(): LiveData<List<BaseExercise>>
 
     @Query("SELECT * FROM Exercise")
-    fun getAllExercises(): LiveData<List<Exercise>>
+    fun getExerciseById(): LiveData<Exercise?>
 
 
     /** Workout/WorkoutDescription queries. */

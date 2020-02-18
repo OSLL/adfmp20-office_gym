@@ -8,8 +8,14 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.coroutineScope
-import ru.adfmp.officegym.database.*
+import ru.adfmp.officegym.database.AppDatabase
+import ru.adfmp.officegym.database.BaseExercise
+import ru.adfmp.officegym.database.ExerciseInWorkout
+import ru.adfmp.officegym.database.WorkoutInfo
 
+private val EXERCISES_DATA_FILENAME = "exercises.json"
+private const val WORKOUTS_DATA_FILENAME = "workouts.json"
+private const val EXERCISES_IN_WORKOUTS_DATA_FILENAME = "exercises_in_workouts.json"
 
 class SeedDatabaseWorker(
     context: Context,
@@ -19,11 +25,12 @@ class SeedDatabaseWorker(
         try {
             applicationContext.assets.open(EXERCISES_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val exerciseType = object : TypeToken<List<Exercise>>() {}.type
-                    val exercises: List<Exercise> = Gson().fromJson(jsonReader, exerciseType)
-
+                    val exerciseType = object : TypeToken<List<BaseExercise>>() {}.type
+                    val baseExercises: List<BaseExercise> =
+                        Gson().fromJson(jsonReader, exerciseType)
+                    Log.i("SeedDatabaseWorker", "load ${baseExercises.size} base exercises")
                     val database = AppDatabase.getInstance(applicationContext)
-                    database.dao().insert(*exercises.toTypedArray())
+                    database.dao().insert(*baseExercises.toTypedArray())
 
                     Result.success()
                 }
@@ -32,6 +39,7 @@ class SeedDatabaseWorker(
                 JsonReader(inputStream.reader()).use { jsonReader ->
                     val workoutType = object : TypeToken<List<WorkoutInfo>>() {}.type
                     val workouts: List<WorkoutInfo> = Gson().fromJson(jsonReader, workoutType)
+                    Log.i("SeedDatabaseWorker", "load ${workouts.size} workouts")
 
                     val database = AppDatabase.getInstance(applicationContext)
                     database.dao().insert(*workouts.toTypedArray())
@@ -45,7 +53,10 @@ class SeedDatabaseWorker(
                         object : TypeToken<List<ExerciseInWorkout>>() {}.type
                     val exercisesInWorkout: List<ExerciseInWorkout> = Gson()
                         .fromJson(jsonReader, exerciseInWorkoutType)
-
+                    Log.i(
+                        "SeedDatabaseWorker",
+                        "load ${exercisesInWorkout.size} exercises in workout"
+                    )
                     val database = AppDatabase.getInstance(applicationContext)
                     database.dao().insert(*exercisesInWorkout.toTypedArray())
 

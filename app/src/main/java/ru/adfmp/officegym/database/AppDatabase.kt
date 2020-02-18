@@ -13,13 +13,11 @@ import ru.adfmp.officegym.database.workers.SeedDatabaseWorker
 
 
 private const val DATABASE_NAME = "gym.db"
-const val EXERCISES_DATA_FILENAME = "exercises.json"
-const val WORKOUTS_DATA_FILENAME = "workouts.json"
-const val EXERCISES_IN_WORKOUTS_DATA_FILENAME = "exercises_in_workouts.json"
 
 @Database(
-    entities = [Exercise::class, WorkoutInfo::class, ExerciseInWorkout::class,
+    entities = [BaseExercise::class, WorkoutInfo::class, ExerciseInWorkout::class,
         Alarm::class, Statistic::class],
+    views = [Exercise::class],
     version = 1,
     exportSchema = false
 )
@@ -32,14 +30,13 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase {
-            return instance ?: synchronized(this) {
+        fun getInstance(context: Context) =
+            instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
-        }
 
-        private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+        private fun buildDatabase(context: Context) =
+            Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
@@ -48,6 +45,5 @@ abstract class AppDatabase : RoomDatabase() {
                     }
                 })
                 .build()
-        }
     }
 }

@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit
 
 val random = Random()
 
-
 @Throws(InterruptedException::class)
 fun <T> getValue(liveData: LiveData<T>): T {
     val data = arrayOfNulls<Any>(1)
@@ -26,36 +25,24 @@ private fun getRandomString() = UUID.randomUUID().toString()
 
 private fun getRandomInt() = random.nextInt()
 
+fun buildExercise() = BaseExercise(
+    name = getRandomString(),
+    description = getRandomString(),
+    recommendedDuration = getRandomInt(),
+    intensity = getRandomInt()
+)
 
-fun buildExercise(): Exercise {
-    return Exercise(
-        name = getRandomString(),
-        description = getRandomString(),
-        recommendedDuration = getRandomInt(),
-        intensity = getRandomInt()
-    )
-}
+fun buildExercises(count: Int) = List(count) { buildExercise() }
 
-fun buildExercises(count: Int): List<Exercise> {
-    return List(count) { buildExercise() }
-}
+fun buildWorkoutInfo() = WorkoutInfo(name = getRandomString())
 
-fun buildWorkoutInfo(): WorkoutInfo {
-    return WorkoutInfo(
-        name = getRandomString()
-    )
-}
-
-fun buildWorkoutInfo(count: Int): List<WorkoutInfo> {
-    return List(count) { buildWorkoutInfo() }
-}
+fun buildWorkoutInfo(count: Int) = List(count) { buildWorkoutInfo() }
 
 fun buildAlarm(workoutId: Long, repeat: Boolean): Alarm {
     return if (repeat)
         Alarm(
             name = getRandomString(),
             workoutId = workoutId,
-            days = arrayOf(true, true, false, false, false, false, false),
             start = getRandomInt(),
             repeat = true,
             frequency = getRandomInt(),
@@ -64,7 +51,6 @@ fun buildAlarm(workoutId: Long, repeat: Boolean): Alarm {
         Alarm(
             name = getRandomString(),
             workoutId = workoutId,
-            days = arrayOf(true, true, false, false, false, false, false),
             start = getRandomInt(),
             repeat = false
         )

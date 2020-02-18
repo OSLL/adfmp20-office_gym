@@ -4,17 +4,25 @@ import androidx.room.TypeConverter
 
 class Converters {
 
-    @TypeConverter
-    fun fromInt(value: Int): Array<Boolean> {
-        return Array(7) { i -> (value shl i) % 2 == 0 }
+    enum class DayOfWeek(val value: Int) {
+        MONDAY(1),
+        TUESDAY(2),
+        WEDNESDAY(3),
+        THURSDAY(4),
+        FRIDAY(5),
+        SATURDAY(6),
+        SUNDAY(7);
     }
 
     @TypeConverter
-    fun dateToTimestamp(days: Array<Boolean>): Int {
+    fun fromInt(value: Int): Map<DayOfWeek, Boolean> {
+        return DayOfWeek.values().associate { it to ((value shl it.value) % 2 == 0) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(days: Map<DayOfWeek, Boolean>): Int {
         var value = 0
-        for ((i, day) in days.withIndex()) {
-            value += if (day) 1 shr i else 0
-        }
+        days.forEach { (day, is_selected) -> value += if (is_selected) 1 shr day.value else 0 }
         return value
     }
 }

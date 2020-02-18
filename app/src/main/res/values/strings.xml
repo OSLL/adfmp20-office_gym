@@ -1,10 +1,20 @@
 <resources>
+
+    <!-- Resources that do not require translation -->
     <string name="app_name">OfficeGym</string>
+
+    <!-- Translatable resources -->
+    <string name="total_duration">total duration: %d</string>
+    <string name="intensity">intensity: %d</string>
+    <string name="duration">duration: %d</string>
     <string name="title_home">Home</string>
+    <string name="title_workouts">Workouts</string>
+    <string name="title_exercises">Exercises</string>
     <string name="profile_text">This is profile fragment.</string>
     <string name="title_profile">Profile</string>
     <string name="alarm_text">This is alarm fragment.</string>
     <string name="title_alarm">Alarm</string>
     <string name="statistics_text">This is statistics fragment.</string>
     <string name="title_statistics">Statistics</string>
+    <string name="start_workout_fragment">Start workout</string>
 </resources>
