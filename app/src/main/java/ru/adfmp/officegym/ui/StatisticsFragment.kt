@@ -1,4 +1,4 @@
-package ru.adfmp.officegym.ui.alarm
+package ru.adfmp.officegym.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.adfmp.officegym.R
 
-class AlarmFragment : Fragment() {
+class StatisticsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_alarm, container, false)
+        return inflater.inflate(R.layout.fragment_statistics, container, false)
     }
 }

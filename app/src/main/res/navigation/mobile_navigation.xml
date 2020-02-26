@@ -2,47 +2,160 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="ru.adfmp.officegym.ui.home.HomeFragment"
+        android:id="@+id/nav_home"
+        android:name="ru.adfmp.officegym.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_start_workout_fragment"
-            app:destination="@id/navigation_start_workout_fragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_start_workout_fragment"
-            app:destination="@+id/navigation_start_workout_fragment" />
+            android:id="@+id/action_nav_home_to_nav_start_workout_fragment"
+            app:destination="@+id/nav_start_workout_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="ru.adfmp.officegym.ui.profile.ProfileFragment"
+        android:id="@+id/nav_profile"
+        android:name="ru.adfmp.officegym.ui.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_nav_edit_all_exercises_fragment"
+            app:destination="@id/nav_edit_all_exercises_fragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_edit_all_workouts_fragment"
+            app:destination="@id/nav_edit_all_workouts_fragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_alarm"
-        android:name="ru.adfmp.officegym.ui.alarm.AlarmFragment"
+        android:id="@+id/nav_alarm"
+        android:name="ru.adfmp.officegym.ui.AlarmFragment"
         android:label="@string/title_alarm"
         tools:layout="@layout/fragment_alarm" />
 
     <fragment
-        android:id="@+id/navigation_statistics"
-        android:name="ru.adfmp.officegym.ui.statistics.StatisticsFragment"
+        android:id="@+id/nav_statistics"
+        android:name="ru.adfmp.officegym.ui.StatisticsFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_statistics" />
 
     <fragment
-        android:id="@+id/navigation_start_workout_fragment"
-        android:name="ru.adfmp.officegym.ui.start_workout.StartWorkoutFragment"
-        android:label="@string/start_workout_fragment"
+        android:id="@+id/nav_start_workout_fragment"
+        android:name="ru.adfmp.officegym.ui.StartWorkoutFragment"
+        android:label="@string/title_start_workout_fragment"
         tools:layout="@layout/fragment_start_workout" >
         <argument
             android:name="workoutId"
             app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_all_exercises_fragment"
+        android:name="ru.adfmp.officegym.ui.EditAllExercisesFragment"
+        android:label="@string/title_edit_all_exercises"
+        tools:layout="@layout/fragment_edit_all_exercises" >
+        <action
+            android:id="@+id/action_nav_edit_all_exercises_to_nav_edit_exercise_fragment"
+            app:destination="@id/nav_edit_exercise_fragment" >
+            <argument android:defaultValue="0L"
+                android:name="exerciseId" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_all_workouts_fragment"
+        android:name="ru.adfmp.officegym.ui.EditAllWorkoutsFragment"
+        android:label="@string/title_edit_all_workouts"
+        tools:layout="@layout/fragment_edit_all_workouts" >
+        <action
+            android:id="@+id/action_nav_edit_all_workouts_to_nav_edit_workout_fragment"
+            app:destination="@id/nav_edit_workout_fragment" >
+            <argument
+                android:name="workoutId"
+                android:defaultValue="0L" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_workout_fragment"
+        android:name="ru.adfmp.officegym.ui.EditWorkoutFragment"
+        android:label="EditWorkoutFragment"
+        tools:layout="@layout/fragment_edit_workout">
+        <argument
+            android:name="workoutId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_nav_edit_workout_to_nav_edit_exercise_in_workout_fragment"
+            app:destination="@id/nav_edit_exercise_in_workout_fragment" >
+            <argument
+                android:name="exerciseInWorkoutId"
+                app:argType="long"
+                android:defaultValue="0L" />
+            <argument
+                android:name="baseExerciseId"
+                app:argType="long" />
+            <argument
+                android:name="workoutId"
+                app:argType="long" />
+        </action>
+        <action
+            android:id="@+id/action_nav_edit_workout_to_add_exercise_to_workout_fragment"
+            app:destination="@id/add_exercise_to_workout_fragment" >
+            <argument
+                android:name="workoutId"
+                app:argType="long" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_exercise_fragment"
+        android:name="ru.adfmp.officegym.ui.EditExerciseFragment"
+        android:label="fragment_edit_exercise"
+        tools:layout="@layout/fragment_edit_exercise">
+        <argument
+            android:name="exerciseId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_edit_exercise_in_workout_fragment"
+        android:name="ru.adfmp.officegym.ui.EditExerciseInWorkoutFragment"
+        android:label="EditExerciseInWorkoutFragment"
+        tools:layout="@layout/fragment_edit_exercise_in_workout">
+        <argument
+            android:name="exerciseInWorkoutId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="baseExerciseId"
+            app:argType="long" />
+        <argument
+            android:name="workoutId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_exercise_to_workout_fragment"
+        android:name="ru.adfmp.officegym.ui.AddExerciseToWorkoutFragment"
+        android:label="AddExerciseToWorkoutFragment"
+        tools:layout="@layout/fragment_add_exercise_to_workout">
+        <argument
+            android:name="workoutId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_add_exercise_to_workout_to_nav_edit_exercise_in_workout_fragment"
+            app:popUpTo="@+id/add_exercise_to_workout_fragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_edit_exercise_in_workout_fragment" >
+            <argument
+                android:name="exerciseInWorkoutId"
+                app:argType="long"
+                android:defaultValue="0L" />
+            <argument
+                android:name="baseExerciseId"
+                app:argType="long" />
+            <argument
+                android:name="workoutId"
+                app:argType="long" />
+        </action>
     </fragment>
 
 </navigation>

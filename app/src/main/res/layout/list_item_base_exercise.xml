@@ -7,7 +7,7 @@
 
         <variable
             name="exercise"
-            type="ru.adfmp.officegym.database.Exercise" />
+            type="ru.adfmp.officegym.database.BaseExercise" />
     </data>
 
 
@@ -50,8 +50,8 @@
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_weight="1"
-            app:duration="@{exercise.duration}"
-            tools:text="@string/duration" />
+            app:recommendedDuration="@{exercise.recommendedDuration}"
+            tools:text="@string/recommended_duration" />
 
         <TextView
             android:id="@+id/exercise_intensity"

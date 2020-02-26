@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="workout"
             type="ru.adfmp.officegym.database.Workout" />
@@ -50,7 +51,21 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_weight="1"
             app:totalDuration="@{workout.exercises}"
-            tools:text="total duration" />
+            tools:text="@string/total_duration" />
+
+        <TextView
+            android:id="@+id/workout_mean_intensity"
+            style="@style/SmallTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_weight="1"
+            app:meanIntensity="@{workout.exercises}"
+            tools:text="@string/mean_intensity" />
 
     </LinearLayout>
 

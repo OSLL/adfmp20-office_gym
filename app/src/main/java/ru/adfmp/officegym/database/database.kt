@@ -10,11 +10,11 @@ import ru.adfmp.officegym.database.converters.Converters.DayOfWeek
 data class BaseExercise(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    var name: String,
-    var description: String,
-    var intensity: Int,
+    var name: String = "",
+    var description: String = "",
+    var intensity: Int = 0,
     @ColumnInfo(name = "recommended_duration")
-    var recommendedDuration: Int
+    var recommendedDuration: Int = 0
 )
 
 @Entity(
@@ -36,28 +36,28 @@ data class BaseExercise(
 data class ExerciseInWorkout(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    var duration: Int,
+    var duration: Int = 0,
     @ColumnInfo(name = "exercise_id")
-    var exerciseId: Long,
+    var exerciseId: Long = 0,
     @ColumnInfo(name = "workout_id")
-    var workoutId: Long
+    var workoutId: Long = 0
 )
 
 @Entity(indices = [Index(value = ["name"], unique = true)])
 data class WorkoutInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    var name: String
+    var name: String = ""
 )
 
 data class Workout(
     @Embedded
-    val workoutInfo: WorkoutInfo,
+    val workoutInfo: WorkoutInfo = WorkoutInfo(),
     @Relation(
         parentColumn = "id",
         entityColumn = "workout_id"
     )
-    var exercises: List<Exercise>
+    var exercises: List<Exercise> = emptyList()
 )
 
 @Entity
@@ -121,11 +121,11 @@ interface GymDao {
 
     /** Exercise queries. */
 
-    @Insert
-    suspend fun insert(vararg baseExercise: BaseExercise)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(vararg baseExercise: BaseExercise): List<Long>
 
-    @Update
-    suspend fun update(vararg baseExercise: BaseExercise)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun update(vararg baseExercise: BaseExercise): Int
 
     @Delete
     suspend fun delete(baseExercise: BaseExercise)
@@ -142,11 +142,11 @@ interface GymDao {
 
     /** Workout/WorkoutDescription queries. */
 
-    @Insert
-    suspend fun insert(vararg workoutInfo: WorkoutInfo)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(vararg workoutInfo: WorkoutInfo): List<Long>
 
-    @Update
-    suspend fun update(vararg workoutInfo: WorkoutInfo)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun update(vararg workoutInfo: WorkoutInfo): Int
 
     @Delete
     suspend fun delete(workoutInfo: WorkoutInfo)
@@ -163,13 +163,16 @@ interface GymDao {
     /** ExerciseInWorkout queries. */
 
     @Insert
-    suspend fun insert(vararg exerciseInWorkout: ExerciseInWorkout)
+    suspend fun insert(vararg exerciseInWorkout: ExerciseInWorkout): List<Long>
 
     @Update
-    suspend fun update(vararg exerciseInWorkout: ExerciseInWorkout)
+    suspend fun update(vararg exerciseInWorkout: ExerciseInWorkout): Int
 
     @Delete
     suspend fun delete(exerciseInWorkout: ExerciseInWorkout)
+
+    @Query("SELECT * FROM ExerciseInWorkout WHERE id = :id")
+    fun getExerciseInWorkoutById(id: Long): LiveData<ExerciseInWorkout?>
 
 
     /** Alarm queries. */
