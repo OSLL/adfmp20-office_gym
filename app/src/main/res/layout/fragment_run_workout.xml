@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="exercise"
+            type="ru.adfmp.officegym.database.Exercise" />
+
+        <variable
+            name="isPaused"
+            type="androidx.lifecycle.LiveData&lt;Boolean&gt;" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/NormalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vertical_margin"
+            android:layout_weight="1"
+            android:text="@{exercise.name}"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:contentDescription="@string/exercise_image"
+            android:src="@drawable/sport" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/vertical_margin"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/time_text"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:cpb_background_progressbar_color="#b6bbd8"
+                app:cpb_background_progressbar_width="15dp"
+                app:cpb_progressbar_color="#3f51b5"
+                app:cpb_progressbar_width="15dp"
+                app:cpb_round_border="true" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/mute_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@string/next_exercise"
+                android:src="@drawable/ic_mute_icon" />
+
+            <ImageButton
+                android:id="@+id/pause_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@string/next_exercise"
+                android:src="@{isPaused ? @drawable/ic_play_icon : @drawable/ic_pause_icon}" />
+
+            <ImageButton
+                android:id="@+id/next_exercise_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@string/next_exercise"
+                android:src="@drawable/ic_next_icon" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

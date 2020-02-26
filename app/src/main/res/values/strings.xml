@@ -40,4 +40,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_workout_fragment">Start workout</string>
+    <string name="start">Start!</string>
+    <string name="title_run_workout">RunWorkoutFragment</string>
+    <string name="next">Next</string>
+    <string name="exercise_image">Exercise image</string>
+    <string name="next_exercise">NextExercise</string>
 </resources>
