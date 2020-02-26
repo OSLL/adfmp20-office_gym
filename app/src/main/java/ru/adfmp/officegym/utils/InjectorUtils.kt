@@ -6,6 +6,7 @@ import ru.adfmp.officegym.database.AppDatabase
 import ru.adfmp.officegym.database.repositories.BaseExerciseRepository
 import ru.adfmp.officegym.database.repositories.ExerciseInWorkoutRepository
 import ru.adfmp.officegym.database.repositories.WorkoutRepository
+import ru.adfmp.officegym.database.repositories.AlarmRepository
 import ru.adfmp.officegym.factories.*
 
 object InjectorUtils {
@@ -14,6 +15,11 @@ object InjectorUtils {
         return WorkoutRepository.getInstance(
             AppDatabase.getInstance(context.applicationContext).dao()
         )
+    }
+
+    private fun getAlarmRepository(context: Context): AlarmRepository {
+        return AlarmRepository.getInstance(
+            AppDatabase.getInstance(context.applicationContext).dao())
     }
 
     private fun getBaseExerciseRepository(context: Context): BaseExerciseRepository {
@@ -44,6 +50,11 @@ object InjectorUtils {
     ): StartWorkoutViewModelFactory {
         val repository = getWorkoutRepository(fragment.requireContext())
         return StartWorkoutViewModelFactory(repository, workoutId)
+    }
+
+    fun provideAlarmViewModelFactory(fragment: Fragment) : AlarmViewModelFactory {
+        val repository = getAlarmRepository(fragment.requireContext())
+        return AlarmViewModelFactory(repository)
     }
 
     fun provideEditExerciseViewModelFactory(

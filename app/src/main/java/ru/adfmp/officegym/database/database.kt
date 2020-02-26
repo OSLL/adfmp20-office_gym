@@ -189,6 +189,7 @@ interface GymDao {
     @Query("SELECT * FROM Alarm WHERE id = :id")
     fun getAlarmById(id: Long): LiveData<Alarm?>
 
+    @Transaction
     @Query("SELECT * FROM Alarm")
     fun getAllAlarms(): LiveData<List<Alarm>>
 
