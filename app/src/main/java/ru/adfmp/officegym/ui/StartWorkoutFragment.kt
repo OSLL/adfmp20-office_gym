@@ -55,7 +55,9 @@ class StartWorkoutFragment : Fragment() {
     )
 
     private fun subscribeUi(adapter: BaseAdapter<Exercise, ExerciseViewHolder>) {
-        val runWorkoutModel: RunWorkoutViewModel by activityViewModels()
+        val runWorkoutModel: RunWorkoutViewModel by activityViewModels {
+            InjectorUtils.provideRunWorkoutViewModelFactory(this)
+        }
         viewModel.workout.observe(viewLifecycleOwner) { workout ->
             adapter.submitList(workout!!.exercises)
             runWorkoutModel.setWorkout(workout)

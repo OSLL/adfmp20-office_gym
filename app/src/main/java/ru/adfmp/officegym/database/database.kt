@@ -205,6 +205,9 @@ interface GymDao {
     @Query("SELECT * FROM Statistic WHERE date = :date")
     fun getStatisticByDate(date: Long): LiveData<List<Statistic>>
 
-    @Query("SELECT * FROM Statistic")
+    @Query("SELECT * FROM Statistic WHERE date = :date")
+    suspend fun selectStatistic(date: Long): Statistic?
+
+    @Query("SELECT * FROM Statistic ORDER BY date")
     fun getAllStatistic(): LiveData<List<Statistic>>
 }

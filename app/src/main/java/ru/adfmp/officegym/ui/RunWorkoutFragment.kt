@@ -13,12 +13,15 @@ import kotlinx.android.synthetic.main.fragment_run_workout.view.*
 import ru.adfmp.officegym.database.Exercise
 import ru.adfmp.officegym.databinding.FragmentRunWorkoutBinding
 import ru.adfmp.officegym.models.RunWorkoutViewModel
+import ru.adfmp.officegym.utils.InjectorUtils
 import ru.adfmp.officegym.utils.PlayPauseTimer
 import ru.adfmp.officegym.utils.PlayPauseTimer.Companion.MILLIS_IN_SECOND
 
 class RunWorkoutFragment : Fragment() {
     private var timer: PlayPauseTimer? = null
-    private val runWorkoutModel: RunWorkoutViewModel by activityViewModels()
+    private val runWorkoutModel: RunWorkoutViewModel by activityViewModels {
+        InjectorUtils.provideRunWorkoutViewModelFactory(this)
+    }
     private val isTimerPaused = MutableLiveData(false)
 
     override fun onCreateView(
@@ -71,7 +74,10 @@ class RunWorkoutFragment : Fragment() {
     private fun createTimer(binding: FragmentRunWorkoutBinding, durationSeconds: Int) =
         PlayPauseTimer(
             millisInFuture = durationSeconds * MILLIS_IN_SECOND,
-            onFinish = { runWorkoutModel.next() },
+            onFinish = {
+                runWorkoutModel.exerciseCompleted()
+                runWorkoutModel.next()
+            },
             onTick = { millisUntilFinished, percent ->
                 val secondsUntilFinished = millisUntilFinished / MILLIS_IN_SECOND
                 binding.progress.progress = percent.toFloat()

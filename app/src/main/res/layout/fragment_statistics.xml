@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="?attr/actionBarSize">
 
         <TextView
             style="@style/TitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_statistics"
-            android:layout_marginTop="@dimen/top_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"/>
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center_horizontal"
+            android:text="@string/title_statistics" />
 
-        <FrameLayout
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:mcv_selectionColor="#00000000"
+            app:mcv_selectionMode="single"
+            app:mcv_showOtherDates="none"
+            app:mcv_tileSize="45dp" />
 
-            <CalendarView
-                android:id="@+id/calendarView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </FrameLayout>
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plot_height"
+            android:layout_marginBottom="@dimen/small_margin" />
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plot_height"
+            android:layout_marginBottom="@dimen/small_margin" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plot_height"
+            android:layout_marginBottom="@dimen/small_margin" />
     </LinearLayout>
+</ScrollView>
 
-</layout>

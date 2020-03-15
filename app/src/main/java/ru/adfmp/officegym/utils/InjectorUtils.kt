@@ -3,10 +3,7 @@ package ru.adfmp.officegym.utils
 import android.content.Context
 import androidx.fragment.app.Fragment
 import ru.adfmp.officegym.database.AppDatabase
-import ru.adfmp.officegym.database.repositories.BaseExerciseRepository
-import ru.adfmp.officegym.database.repositories.ExerciseInWorkoutRepository
-import ru.adfmp.officegym.database.repositories.WorkoutRepository
-import ru.adfmp.officegym.database.repositories.AlarmRepository
+import ru.adfmp.officegym.database.repositories.*
 import ru.adfmp.officegym.factories.*
 
 object InjectorUtils {
@@ -19,7 +16,8 @@ object InjectorUtils {
 
     private fun getAlarmRepository(context: Context): AlarmRepository {
         return AlarmRepository.getInstance(
-            AppDatabase.getInstance(context.applicationContext).dao())
+            AppDatabase.getInstance(context.applicationContext).dao()
+        )
     }
 
     private fun getBaseExerciseRepository(context: Context): BaseExerciseRepository {
@@ -33,6 +31,9 @@ object InjectorUtils {
             AppDatabase.getInstance(context.applicationContext).dao()
         )
     }
+
+    private fun getStatisticsRepository(context: Context): StatisticsRepository =
+        StatisticsRepository.getInstance(AppDatabase.getInstance(context.applicationContext).dao())
 
     fun provideWorkoutsViewModelFactory(fragment: Fragment): WorkoutsViewModelFactory {
         val repository = getWorkoutRepository(fragment.requireContext())
@@ -52,7 +53,7 @@ object InjectorUtils {
         return StartWorkoutViewModelFactory(repository, workoutId)
     }
 
-    fun provideAlarmViewModelFactory(fragment: Fragment) : AlarmViewModelFactory {
+    fun provideAlarmViewModelFactory(fragment: Fragment): AlarmViewModelFactory {
         val repository = getAlarmRepository(fragment.requireContext())
         return AlarmViewModelFactory(repository)
     }
@@ -82,4 +83,10 @@ object InjectorUtils {
         val repository = getExerciseInWorkoutRepository(fragment.requireContext())
         return EditExerciseInWorkoutViewModelFactory(repository, exerciseInWorkoutId, baseExerciseId, workoutId)
     }
+
+    fun provideRunWorkoutViewModelFactory(fragment: Fragment) =
+        RunWorkoutViewModelFactory(getStatisticsRepository(fragment.requireContext()))
+
+    fun provideStatisticsViewModelFactory(fragment: Fragment) =
+        StatisticsViewModelFactory(getStatisticsRepository(fragment.requireContext()))
 }
