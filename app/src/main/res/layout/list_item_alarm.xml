@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="alarm"
             type="ru.adfmp.officegym.database.Alarm" />
@@ -22,7 +22,8 @@
         android:background="@drawable/border"
         android:gravity="center"
         android:minHeight="@dimen/min_list_item_height"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
 
         <TextView
             android:id="@+id/alarm_name"

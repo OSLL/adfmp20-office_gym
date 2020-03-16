@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ru.adfmp.officegym.R
 import ru.adfmp.officegym.databinding.FragmentEditExerciseBinding
 import ru.adfmp.officegym.models.EditExerciseViewModel
 import ru.adfmp.officegym.utils.InjectorUtils
@@ -40,6 +41,7 @@ class EditExerciseFragment : Fragment() {
     private fun subscribeUi(binding: FragmentEditExerciseBinding) {
         viewModel.baseExercise.observe(viewLifecycleOwner) { exercise ->
             binding.exercise = exercise
+            binding.editExercisesImage.setImageResource(exercise?.resourceId ?: R.drawable.icon_005_exercise)
         }
         binding.save.setOnClickListener {
             if (viewModel.insertOrUpdateExercise()) {

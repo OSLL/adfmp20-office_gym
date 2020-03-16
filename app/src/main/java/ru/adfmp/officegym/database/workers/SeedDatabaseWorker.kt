@@ -8,31 +8,47 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.coroutineScope
-import ru.adfmp.officegym.database.AppDatabase
-import ru.adfmp.officegym.database.BaseExercise
-import ru.adfmp.officegym.database.ExerciseInWorkout
-import ru.adfmp.officegym.database.WorkoutInfo
-import ru.adfmp.officegym.database.Alarm
+import ru.adfmp.officegym.database.*
 
-private val EXERCISES_DATA_FILENAME = "exercises.json"
+private const val EXERCISES_DATA_FILENAME = "exercises.json"
 private const val WORKOUTS_DATA_FILENAME = "workouts.json"
 private const val EXERCISES_IN_WORKOUTS_DATA_FILENAME = "exercises_in_workouts.json"
 private const val ALARMS_DATA_FILENAME = "alarms.json"
+private const val DRAWABLE_RESOURCE = "drawable"
+
+private fun resourceId(context: Context, name: String): Int {
+    val id = context.resources.getIdentifier(name, DRAWABLE_RESOURCE, context.packageName)
+    check(id != 0)
+    return id
+}
 
 class SeedDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
+
+    private inner class BaseExerciseTemporary(
+        val id: Long = 0,
+        val name: String = "",
+        val description: String = "",
+        val intensity: Int = 0,
+        val recommendedDuration: Int = 0,
+        val resource: String
+    ) {
+        fun toBaseExercise(context: Context) =
+            BaseExercise(id, name, description, intensity, recommendedDuration, resourceId(context, resource))
+    }
+
     override suspend fun doWork(): Result = coroutineScope {
         try {
             applicationContext.assets.open(EXERCISES_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val exerciseType = object : TypeToken<List<BaseExercise>>() {}.type
-                    val baseExercises: List<BaseExercise> =
+                    val exerciseType = object : TypeToken<List<BaseExerciseTemporary>>() {}.type
+                    val baseExercises: List<BaseExerciseTemporary> =
                         Gson().fromJson(jsonReader, exerciseType)
                     Log.i("SeedDatabaseWorker", "load ${baseExercises.size} base exercises")
                     val database = AppDatabase.getInstance(applicationContext)
-                    database.dao().insert(*baseExercises.toTypedArray())
+                    database.dao().insert(*baseExercises.map { it.toBaseExercise(applicationContext) }.toTypedArray())
 
                     Result.success()
                 }

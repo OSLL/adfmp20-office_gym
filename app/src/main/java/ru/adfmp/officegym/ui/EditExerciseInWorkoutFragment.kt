@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ru.adfmp.officegym.R
 import ru.adfmp.officegym.databinding.FragmentEditExerciseInWorkoutBinding
 import ru.adfmp.officegym.models.EditExerciseInWorkoutViewModel
 import ru.adfmp.officegym.utils.InjectorUtils
@@ -48,6 +49,7 @@ class EditExerciseInWorkoutFragment : Fragment() {
         }
         viewModel.baseExercise.observe(viewLifecycleOwner) { exercise ->
             binding.exercise = exercise
+            binding.editExercisesImage.setImageResource(exercise?.resourceId ?: R.drawable.icon_005_exercise)
         }
         binding.save.setOnClickListener {
             if (viewModel.insertOrUpdateExercise()) {

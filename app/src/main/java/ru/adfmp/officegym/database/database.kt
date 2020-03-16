@@ -14,7 +14,9 @@ data class BaseExercise(
     var description: String = "",
     var intensity: Int = 0,
     @ColumnInfo(name = "recommended_duration")
-    var recommendedDuration: Int = 0
+    var recommendedDuration: Int = 0,
+    @ColumnInfo(name = "resource_id")
+    val resourceId: Int
 )
 
 @Entity(
@@ -98,7 +100,7 @@ data class Alarm(
 @DatabaseView(
     """
     SELECT baseExercise.id AS base_id, exerciseInWorkout.id AS id, baseExercise.name, baseExercise.intensity,
-    baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id
+    baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id, baseExercise.resource_id
     FROM exerciseInWorkout
     JOIN baseExercise ON exerciseInWorkout.exercise_id = baseExercise.id
     """
@@ -113,7 +115,9 @@ data class Exercise(
     var recommendedDuration: Int,
     var duration: Int,
     @ColumnInfo(name = "workout_id")
-    val workoutId: Long
+    val workoutId: Long,
+    @ColumnInfo(name = "resource_id")
+    val resourceId: Int
 )
 
 @Dao

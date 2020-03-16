@@ -12,6 +12,7 @@ class ExerciseViewHolder(
     override fun bind(item: Exercise) {
         binding.apply {
             exercise = item
+            image.setImageResource(item.resourceId)
             root.setOnClickListener {
                 //TODO: add click listener
             }

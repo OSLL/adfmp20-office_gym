@@ -15,6 +15,7 @@ class EditExerciseInWorkoutViewHolder(
     override fun bind(item: Exercise) {
         binding.apply {
             exercise = item
+            image.setImageResource(item.resourceId)
             root.setOnClickListener {
                 val direction = EditWorkoutFragmentDirections
                     .actionNavEditWorkoutToNavEditExerciseInWorkoutFragment(

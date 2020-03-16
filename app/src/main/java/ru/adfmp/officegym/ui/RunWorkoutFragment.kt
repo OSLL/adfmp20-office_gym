@@ -66,6 +66,7 @@ class RunWorkoutFragment : Fragment() {
         timer = createTimer(binding, exercise.duration)
         timer!!.start()
         binding.exercise = exercise
+        binding.image.setImageResource(exercise.resourceId)
         binding.isPaused = isTimerPaused
         binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()

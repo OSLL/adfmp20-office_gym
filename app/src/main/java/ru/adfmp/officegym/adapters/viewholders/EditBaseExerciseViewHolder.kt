@@ -15,6 +15,7 @@ class EditBaseExerciseViewHolder(
     override fun bind(item: BaseExercise) {
         binding.apply {
             exercise = item
+            image.setImageResource(item.resourceId)
             root.setOnClickListener {
                 val direction = EditAllExercisesFragmentDirections
                     .actionNavEditAllExercisesToNavEditExerciseFragment(item.id)

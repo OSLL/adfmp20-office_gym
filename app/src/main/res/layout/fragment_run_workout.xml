@@ -29,11 +29,11 @@
             android:textSize="20sp" />
 
         <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
-            android:contentDescription="@string/exercise_image"
-            android:src="@drawable/sport" />
+            android:contentDescription="@string/exercise_image" />
 
         <FrameLayout
             android:layout_width="match_parent"

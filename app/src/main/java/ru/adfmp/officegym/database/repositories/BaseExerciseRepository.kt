@@ -2,6 +2,7 @@ package ru.adfmp.officegym.database.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.adfmp.officegym.R
 import ru.adfmp.officegym.database.BaseExercise
 import ru.adfmp.officegym.database.GymDao
 
@@ -19,7 +20,7 @@ class BaseExerciseRepository private constructor(private val gymDao: GymDao) {
 
     fun getEditableBaseExerciseById(id: Long): LiveData<BaseExercise?> {
         if (id == 0L) {
-            return MutableLiveData(BaseExercise())
+            return MutableLiveData(BaseExercise(resourceId = R.drawable.icon_005_exercise))
         }
         return gymDao.getBaseExerciseById(id)
     }

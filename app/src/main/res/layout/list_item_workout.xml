@@ -10,64 +10,62 @@
             type="ru.adfmp.officegym.database.Workout" />
     </data>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:layout_marginBottom="@dimen/vertical_margin"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:minHeight="@dimen/min_list_item_height"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/small_margin">
 
-        <TextView
-            android:id="@+id/workout_name"
-            style="@style/NormalTextStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            android:text="@{workout.workoutInfo.name}"
-            tools:text="Workout" />
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:minHeight="@dimen/min_list_item_height"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding">
 
-        <TextView
-            android:id="@+id/workout_total_duration"
-            style="@style/SmallTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            app:totalDuration="@{workout.exercises}"
-            tools:text="@string/total_duration" />
+            <TextView
+                android:id="@+id/workout_name"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{workout.workoutInfo.name}"
+                tools:text="Workout" />
 
-        <TextView
-            android:id="@+id/workout_mean_intensity"
-            style="@style/SmallTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            app:meanIntensity="@{workout.exercises}"
-            tools:text="@string/mean_intensity" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/exercise_image" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/workout_total_duration"
+                style="@style/SmallTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                app:totalDuration="@{workout.exercises}"
+                tools:text="@string/total_duration" />
 
+            <TextView
+                android:id="@+id/workout_mean_intensity"
+                style="@style/SmallTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                app:meanIntensity="@{workout.exercises}"
+                tools:text="@string/mean_intensity" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 </layout>

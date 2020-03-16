@@ -11,7 +11,7 @@
     </data>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin"
@@ -21,53 +21,71 @@
         android:layout_marginRight="@dimen/horizontal_margin"
         android:layout_marginBottom="@dimen/vertical_margin"
         android:background="@drawable/border"
-        android:gravity="center"
         android:minHeight="@dimen/min_list_item_height"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding">
 
-        <TextView
-            android:id="@+id/exercise_name"
-            style="@style/NormalTextStyle"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            android:text="@{exercise.name}"
-            tools:text="Exercise" />
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/exercise_duration"
-            style="@style/SmallTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            app:recommendedDuration="@{exercise.recommendedDuration}"
-            tools:text="@string/recommended_duration" />
+            <TextView
+                android:id="@+id/exercise_name"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginEnd="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_weight="1"
+                android:text="@{exercise.name}"
+                tools:text="Exercise" />
 
-        <TextView
-            android:id="@+id/exercise_intensity"
-            style="@style/SmallTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_weight="1"
-            app:intensity="@{exercise.intensity}"
-            tools:text="@string/intensity" />
+            <TextView
+                android:id="@+id/exercise_duration"
+                style="@style/SmallTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginEnd="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_weight="1"
+                app:recommendedDuration="@{exercise.recommendedDuration}"
+                tools:text="@string/recommended_duration" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/exercise_intensity"
+                style="@style/SmallTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:layout_marginLeft="@dimen/horizontal_margin"
+                android:layout_marginEnd="@dimen/horizontal_margin"
+                android:layout_marginRight="@dimen/horizontal_margin"
+                android:layout_weight="1"
+                app:intensity="@{exercise.intensity}"
+                tools:text="@string/intensity" />
 
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/small_margin"
+            android:contentDescription="@string/exercise_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

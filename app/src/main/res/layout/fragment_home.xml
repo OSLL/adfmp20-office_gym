@@ -25,12 +25,9 @@
             android:id="@+id/workout_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/top_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_margin="@dimen/small_margin"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
             tools:listitem="@layout/list_item_workout" />
 
 
