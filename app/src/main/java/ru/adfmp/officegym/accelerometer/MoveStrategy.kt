@@ -1,6 +1,5 @@
 package ru.adfmp.officegym.accelerometer
 
-import android.util.Log
 import ru.adfmp.officegym.database.converters.Converters
 import kotlin.math.abs
 
@@ -86,9 +85,10 @@ class Wave(private val maxPeriod: Double, private val minAmplitude: Double) : IS
             }
             periods.add((i - start).toDouble())
         }
+        if (periods.size == 1) {
+            return Pair(StrategyStatus.DO_FASTER, 0)
+        }
         periods = periods.subList(1, periods.size - 1)
-        Log.d("Accelerometer", "Wave:p=${periods.mean()}")
-        Log.d("Accelerometer", "Wave:max=${data.max()}, :min=${data.min()}")
         return when {
             periods.mean() > maxPeriod -> {
                 return Pair(StrategyStatus.DO_FASTER, periods.size / 4)

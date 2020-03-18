@@ -29,7 +29,8 @@ fun buildExercise() = BaseExercise(
     name = getRandomString(),
     description = getRandomString(),
     recommendedDuration = getRandomInt(),
-    intensity = getRandomInt()
+    intensity = getRandomInt(),
+    resourceId = getRandomInt()
 )
 
 fun buildExercises(count: Int) = List(count) { buildExercise() }
