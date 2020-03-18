@@ -15,6 +15,24 @@ data class BaseExercise(
     var intensity: Int = 0,
     @ColumnInfo(name = "recommended_duration")
     var recommendedDuration: Int = 0,
+    @ColumnInfo(name = "strategy_x")
+    val strategyX: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_x")
+    val phaseX: Double = 0.0,
+    @ColumnInfo(name = "amplitude_x")
+    val amplitudeX: Double = 0.0,
+    @ColumnInfo(name = "strategy_y")
+    val strategyY: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_y")
+    val phaseY: Double = 0.0,
+    @ColumnInfo(name = "amplitude_y")
+    val amplitudeY: Double = 0.0,
+    @ColumnInfo(name = "strategy_z")
+    val strategyZ: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_z")
+    val phaseZ: Double = 0.0,
+    @ColumnInfo(name = "amplitude_z")
+    val amplitudeZ: Double = 0.0,
     @ColumnInfo(name = "resource_id")
     val resourceId: Int
 )
@@ -100,7 +118,10 @@ data class Alarm(
 @DatabaseView(
     """
     SELECT baseExercise.id AS base_id, exerciseInWorkout.id AS id, baseExercise.name, baseExercise.intensity,
-    baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id, baseExercise.resource_id
+    baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id, baseExercise.resource_id,
+    baseExercise.strategy_x, baseExercise.phase_x, baseExercise.amplitude_x,
+    baseExercise.strategy_y, baseExercise.phase_y, baseExercise.amplitude_y,
+    baseExercise.strategy_z, baseExercise.phase_z, baseExercise.amplitude_z
     FROM exerciseInWorkout
     JOIN baseExercise ON exerciseInWorkout.exercise_id = baseExercise.id
     """
@@ -117,7 +138,25 @@ data class Exercise(
     @ColumnInfo(name = "workout_id")
     val workoutId: Long,
     @ColumnInfo(name = "resource_id")
-    val resourceId: Int
+    val resourceId: Int,
+    @ColumnInfo(name = "strategy_x")
+    val strategyX: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_x")
+    val phaseX: Double = 0.0,
+    @ColumnInfo(name = "amplitude_x")
+    val amplitudeX: Double = 0.0,
+    @ColumnInfo(name = "strategy_y")
+    val strategyY: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_y")
+    val phaseY: Double = 0.0,
+    @ColumnInfo(name = "amplitude_y")
+    val amplitudeY: Double = 0.0,
+    @ColumnInfo(name = "strategy_z")
+    val strategyZ: Converters.Strategy = Converters.Strategy.IGNORE,
+    @ColumnInfo(name = "phase_z")
+    val phaseZ: Double = 0.0,
+    @ColumnInfo(name = "amplitude_z")
+    val amplitudeZ: Double = 0.0
 )
 
 @Dao

@@ -2,6 +2,7 @@ package ru.adfmp.officegym.adapters
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.DateUtils
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -37,6 +38,27 @@ fun bindMeanIntensity(textView: TextView, exercises: List<Exercise>?) {
     val resources = textView.context.resources
     val text = resources.getString(
         R.string.mean_intensity,
+        exercises?.sumBy { exercise -> exercise.intensity }?.div(if (exercises.size > 1) exercises.size else 1)
+            ?: 0
+    )
+    textView.text = text
+}
+
+@BindingAdapter("baseTotalDuration")
+fun bindBaseTotalDuration(textView: TextView, exercises: List<Exercise>?) {
+    val resources = textView.context.resources
+    val text = resources.getString(
+        R.string.time,
+        DateUtils.formatElapsedTime((exercises?.sumBy { exercise -> exercise.duration } ?: 0).toLong()).toString()
+    )
+    textView.text = text
+}
+
+@BindingAdapter("baseMeanIntensity")
+fun bindBaseMeanIntensity(textView: TextView, exercises: List<Exercise>?) {
+    val resources = textView.context.resources
+    val text = resources.getString(
+        R.string.data,
         exercises?.sumBy { exercise -> exercise.intensity }?.div(if (exercises.size > 1) exercises.size else 1)
             ?: 0
     )

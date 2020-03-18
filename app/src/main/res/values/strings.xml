@@ -8,6 +8,10 @@
     <string name="mean_intensity">mean intensity: %d</string>
     <string name="intensity">intensity: %d</string>
     <string name="duration">duration: %d</string>
+    <string name="title_intensity">intensity</string>
+    <string name="title_duration">duration</string>
+    <string name="data">%d</string>
+    <string name="time">%s</string>
     <string name="recommended_duration">recommended duration: %d</string>
     <string name="simple_intensity">intensity:</string>
     <string name="simple_duration">duration:</string>

@@ -76,7 +76,9 @@ class EditWorkoutFragment : Fragment() {
             exit()
         }
         binding.addExerciseButton.setOnClickListener {
-            val direction = EditWorkoutFragmentDirections.actionNavEditWorkoutToAddExerciseToWorkoutFragment(args.workoutId)
+            val direction =
+                EditWorkoutFragmentDirections
+                    .actionNavEditWorkoutToAddExerciseToWorkoutFragment(args.workoutId)
             findNavController().navigate(direction)
         }
     }

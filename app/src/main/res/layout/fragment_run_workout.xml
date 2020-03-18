@@ -19,14 +19,13 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/NormalTextStyle"
+            style="@style/TitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vertical_margin"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="@{exercise.name}"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textAlignment="center" />
 
         <ImageView
             android:id="@+id/image"
@@ -53,9 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                app:cpb_background_progressbar_color="#b6bbd8"
+                app:cpb_background_progressbar_color="@color/grey"
                 app:cpb_background_progressbar_width="15dp"
-                app:cpb_progressbar_color="#3f51b5"
+                app:cpb_progressbar_color="@color/yellow"
                 app:cpb_progressbar_width="15dp"
                 app:cpb_round_border="true" />
         </FrameLayout>

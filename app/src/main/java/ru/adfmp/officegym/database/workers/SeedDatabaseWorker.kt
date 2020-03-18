@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.coroutineScope
 import ru.adfmp.officegym.database.*
+import ru.adfmp.officegym.database.converters.Converters
 
 private const val EXERCISES_DATA_FILENAME = "exercises.json"
 private const val WORKOUTS_DATA_FILENAME = "workouts.json"
@@ -33,10 +34,25 @@ class SeedDatabaseWorker(
         val description: String = "",
         val intensity: Int = 0,
         val recommendedDuration: Int = 0,
-        val resource: String
+        val resource: String,
+        val strategyX: Converters.Strategy = Converters.Strategy.IGNORE,
+        val phaseX: Double = 0.0,
+        val amplitudeX: Double = 0.0,
+        val strategyY: Converters.Strategy = Converters.Strategy.IGNORE,
+        val phaseY: Double = 0.0,
+        val amplitudeY: Double = 0.0,
+        val strategyZ: Converters.Strategy = Converters.Strategy.IGNORE,
+        val phaseZ: Double = 0.0,
+        val amplitudeZ: Double = 0.0
     ) {
         fun toBaseExercise(context: Context) =
-            BaseExercise(id, name, description, intensity, recommendedDuration, resourceId(context, resource))
+            BaseExercise(
+                id, name, description, intensity, recommendedDuration,
+                strategyX, phaseX, amplitudeX,
+                strategyY, phaseY, amplitudeY,
+                strategyZ, phaseZ, amplitudeZ,
+                resourceId(context, resource)
+            )
     }
 
     override suspend fun doWork(): Result = coroutineScope {
@@ -48,7 +64,8 @@ class SeedDatabaseWorker(
                         Gson().fromJson(jsonReader, exerciseType)
                     Log.i("SeedDatabaseWorker", "load ${baseExercises.size} base exercises")
                     val database = AppDatabase.getInstance(applicationContext)
-                    database.dao().insert(*baseExercises.map { it.toBaseExercise(applicationContext) }.toTypedArray())
+                    database.dao()
+                        .insert(*baseExercises.map { it.toBaseExercise(applicationContext) }.toTypedArray())
 
                     Result.success()
                 }

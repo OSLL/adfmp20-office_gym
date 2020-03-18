@@ -11,6 +11,7 @@
 
         <Button
             android:id="@+id/start_workout_button"
+            style="@style/TitleTextStyle"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"

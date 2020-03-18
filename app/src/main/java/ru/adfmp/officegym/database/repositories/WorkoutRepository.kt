@@ -2,7 +2,6 @@ package ru.adfmp.officegym.database.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.adfmp.officegym.database.ExerciseInWorkout
 import ru.adfmp.officegym.database.GymDao
 import ru.adfmp.officegym.database.Workout
 import ru.adfmp.officegym.database.WorkoutInfo

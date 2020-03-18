@@ -32,6 +32,7 @@ class PlayPauseTimer(
         var canceled: Boolean = false
 
         override fun onFinish() {
+
             this@PlayPauseTimer.onFinish()
         }
 

@@ -90,7 +90,8 @@ class StatisticsFragment : Fragment() {
         statisticsData: List<Int>,
         chart: BarChart
     ) {
-        val dataPoints = statisticsData.mapIndexed { i, value -> BarEntry(i.toFloat(), value.toFloat()) }
+        val dataPoints =
+            statisticsData.mapIndexed { i, value -> BarEntry(i.toFloat(), value.toFloat()) }
         val barDataSet = BarDataSet(dataPoints, name).apply {
             colors = ColorTemplate.PASTEL_COLORS.toList()
             axisDependency = YAxis.AxisDependency.LEFT

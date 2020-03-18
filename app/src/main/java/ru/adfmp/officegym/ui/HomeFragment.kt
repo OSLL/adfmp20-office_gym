@@ -32,8 +32,6 @@ class HomeFragment : Fragment() {
         val adapter = getWorkoutAdapter()
         binding.workoutList.adapter = adapter
         subscribeUi(adapter)
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 

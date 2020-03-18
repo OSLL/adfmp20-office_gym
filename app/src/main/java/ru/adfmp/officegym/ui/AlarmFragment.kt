@@ -35,6 +35,7 @@ class AlarmFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: AlarmAdapter) {
-        viewModel.alarms.observe(viewLifecycleOwner, Observer { alarms -> adapter.submitList(alarms) })
+        viewModel.alarms.observe(viewLifecycleOwner,
+            Observer { alarms -> adapter.submitList(alarms) })
     }
 }

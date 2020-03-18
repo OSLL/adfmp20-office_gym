@@ -1,6 +1,8 @@
 package ru.adfmp.officegym.database.converters
 
 import androidx.room.TypeConverter
+import com.google.gson.annotations.SerializedName
+
 
 class Converters {
 
@@ -25,4 +27,21 @@ class Converters {
         days.forEach { (day, is_selected) -> value += if (is_selected) 1 shr day.value else 0 }
         return value
     }
+
+    enum class Strategy(val value: Int) {
+        @SerializedName("zero")
+        ZERO(0),
+        @SerializedName("ignore")
+        IGNORE(1),
+        @SerializedName("constant")
+        CONSTANT(2),
+        @SerializedName("wave")
+        WAVE(3);
+    }
+
+    @TypeConverter
+    fun toStrategy(value: Int): Strategy = enumValues<Strategy>()[value]
+
+    @TypeConverter
+    fun fromStrategy(strategy: Strategy): Int = strategy.value
 }

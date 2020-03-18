@@ -1,22 +1,72 @@
 [
   {
-    "duration": 1,
+    "duration": 10,
     "exerciseId": 2,
     "workoutId": 1
   },
   {
-    "duration": 2,
+    "duration": 20,
     "exerciseId": 3,
     "workoutId": 1
   },
   {
-    "duration": 5,
+    "duration": 30,
     "exerciseId": 1,
     "workoutId": 2
   },
   {
-    "duration": 5,
+    "duration": 40,
     "exerciseId": 3,
     "workoutId": 2
+  },
+  {
+    "duration": 20,
+    "exerciseId": 1,
+    "workoutId": 3
+  },
+  {
+    "duration": 40,
+    "exerciseId": 2,
+    "workoutId": 3
+  },
+  {
+    "duration": 30,
+    "exerciseId": 3,
+    "workoutId": 3
+  },
+  {
+    "duration": 35,
+    "exerciseId": 4,
+    "workoutId": 3
+  },
+  {
+    "duration": 40,
+    "exerciseId": 5,
+    "workoutId": 3
+  },
+  {
+    "duration": 30,
+    "exerciseId": 6,
+    "workoutId": 3
+  },
+  {
+    "duration": 30,
+    "exerciseId": 6,
+    "workoutId": 4
+  },
+  {
+    "duration": 30,
+    "exerciseId": 2,
+    "workoutId": 4
+  },
+  {
+    "duration": 30,
+    "exerciseId": 6,
+    "workoutId": 4
+  },
+  {
+    "duration": 30,
+    "exerciseId": 2,
+    "workoutId": 4
   }
 ]
