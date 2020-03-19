@@ -81,7 +81,12 @@ object InjectorUtils {
         workoutId: Long
     ): EditExerciseInWorkoutViewModelFactory {
         val repository = getExerciseInWorkoutRepository(fragment.requireContext())
-        return EditExerciseInWorkoutViewModelFactory(repository, exerciseInWorkoutId, baseExerciseId, workoutId)
+        return EditExerciseInWorkoutViewModelFactory(
+            repository,
+            exerciseInWorkoutId,
+            baseExerciseId,
+            workoutId
+        )
     }
 
     fun provideRunWorkoutViewModelFactory(fragment: Fragment) =

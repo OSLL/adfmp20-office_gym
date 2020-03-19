@@ -10,6 +10,7 @@
     <string name="duration">duration: %d</string>
     <string name="title_intensity">intensity</string>
     <string name="title_duration">duration</string>
+    <string name="title_recommended_duration">recommended duration</string>
     <string name="data">%d</string>
     <string name="time">%s</string>
     <string name="recommended_duration">recommended duration: %d</string>
@@ -25,6 +26,8 @@
     <string name="title_workouts">Workouts</string>
     <string name="title_exercises">Exercises</string>
     <string name="title_exercise">Exercise</string>
+    <string name="title_exercise_name">Exercise name</string>
+    <string name="title_description">description</string>
     <string name="title_workout">Workout</string>
     <string name="title_edit_all_workouts">Edit workouts</string>
     <string name="title_edit_all_exercises">Edit exercises</string>

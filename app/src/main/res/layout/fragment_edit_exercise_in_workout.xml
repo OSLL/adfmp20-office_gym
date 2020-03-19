@@ -52,103 +52,74 @@
                     android:text="@string/save_button_text" />
             </FrameLayout>
 
+            <ImageView
+                android:id="@+id/edit_exercises_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_edit_all_exercises"
+                android:maxHeight="150dp"
+                android:src="@drawable/icon_005_exercise" />
+
+            <TextView
+                android:id="@+id/edit_exercise_name"
+                style="@style/NormalTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@{exercise.name}"
+                tools:text="@string/title_exercise" />
+
+            <TextView
+                android:id="@+id/edit_exercise_description"
+                style="@style/SmallTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@{exercise.description}"
+                tools:text="@string/description" />
+
+            <TextView
+                android:id="@+id/exercise_recommended_duration"
+                style="@style/SmallTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/horizontal_margin"
+                app:recommendedDuration="@{exercise.recommendedDuration}"
+                tools:text="@string/recommended_duration" />
+
+            <TextView
+                android:id="@+id/exercise_intensity"
+                style="@style/SmallTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                app:intensity="@{exercise.intensity}"
+                tools:text="@string/intensity" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/horizontal_margin"
+                android:layout_marginBottom="@dimen/horizontal_margin"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/edit_exercises_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/title_edit_all_exercises"
-                    android:maxHeight="400dp"
-                    android:src="@drawable/icon_005_exercise" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:minHeight="@dimen/min_list_item_height"
-                android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/edit_exercise_name"
-                    style="@style/NormalTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="@{exercise.name}"
-                    tools:text="@string/title_exercise" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/SmallTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/simple_duration" />
-
-                    <EditText
-                        android:id="@+id/edit_exercise_duration"
-                        style="@style/SmallTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        app:editDuration="@={exerciseInWorkout.duration}" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/exercise_recommended_duration"
-                        style="@style/SmallTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        app:recommendedDuration="@{exercise.recommendedDuration}"
-                        tools:text="@string/recommended_duration" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/edit_exercise_intensity"
-                        style="@style/SmallTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        app:intensity="@{exercise.intensity}"
-                        tools:text="@string/intensity" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/edit_exercise_description"
                     style="@style/SmallTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="@{exercise.description}"
-                    tools:text="@string/description" />
+                    android:gravity="center"
+                    android:text="@string/title_duration" />
+
+                <NumberPicker
+                    android:id="@+id/duration_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:theme="@style/AppTheme.Picker"
+                    app:pickDuration='@={exerciseInWorkout.duration}' />
             </LinearLayout>
 
             <FrameLayout

@@ -50,7 +50,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -61,80 +61,84 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/title_edit_all_exercises"
-                    android:maxHeight="400dp"
+                    android:maxHeight="150dp"
                     android:src="@drawable/icon_005_exercise" />
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/edit_exercise_name"
+                style="@style/NormalTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:text="@={exercise.name}"
+                tools:text="@string/title_exercise"
+                android:hint="@string/title_exercise_name" />
+
+            <EditText
+                android:id="@+id/edit_exercise_description"
+                style="@style/SmallTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@={exercise.description}"
+                tools:text="@string/description"
+                android:hint="@string/title_description"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:minHeight="@dimen/min_list_item_height"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/horizontal_margin"
+                android:layout_marginBottom="@dimen/horizontal_margin"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edit_exercise_name"
-                    style="@style/NormalTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="@={exercise.name}"
-                    tools:text="@string/title_exercise" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SmallTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/title_recommended_duration" />
+
+                    <NumberPicker
+                        android:id="@+id/recommended_duration_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:theme="@style/AppTheme.Picker"
+                        app:pickRecommendedDuration='@={exercise.recommendedDuration}' />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/simple_recommended_duration" />
+                        android:text="@string/title_intensity" />
 
-                    <EditText
-                        android:id="@+id/edit_exercise_duration"
-                        style="@style/SmallTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        app:editRecommendedDuration="@={exercise.recommendedDuration}" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/SmallTextStyle"
+                    <NumberPicker
+                        android:id="@+id/intensity_picker"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/simple_intensity" />
-
-                    <EditText
-                        android:id="@+id/edit_exercise_intensity"
-                        style="@style/SmallTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        app:editIntensity="@={exercise.intensity}" />
+                        android:layout_height="150dp"
+                        android:theme="@style/AppTheme.Picker"
+                        app:pickIntensity="@={exercise.intensity}" />
                 </LinearLayout>
 
-
-                <EditText
-                    android:id="@+id/edit_exercise_description"
-                    style="@style/SmallTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="@={exercise.description}"
-                    tools:text="@string/description" />
             </LinearLayout>
 
             <FrameLayout

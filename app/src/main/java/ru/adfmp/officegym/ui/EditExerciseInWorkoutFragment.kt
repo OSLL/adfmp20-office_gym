@@ -44,8 +44,18 @@ class EditExerciseInWorkoutFragment : Fragment() {
     }
 
     private fun subscribeUi(binding: FragmentEditExerciseInWorkoutBinding) {
+        binding.durationPicker.minValue = 1
+        binding.durationPicker.maxValue = 300
         viewModel.exerciseInWorkout.observe(viewLifecycleOwner) { exercise ->
             binding.exerciseInWorkout = exercise
+            viewModel.baseExercise.observe(viewLifecycleOwner) { baseExercise ->
+                if (exercise != null && exercise.duration == 0) {
+                    if (baseExercise != null) {
+                        exercise.duration = baseExercise.recommendedDuration
+                        binding.durationPicker.value = baseExercise.recommendedDuration
+                    }
+                }
+            }
         }
         viewModel.baseExercise.observe(viewLifecycleOwner) { exercise ->
             binding.exercise = exercise

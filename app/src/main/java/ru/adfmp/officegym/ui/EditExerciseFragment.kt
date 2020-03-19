@@ -39,11 +39,21 @@ class EditExerciseFragment : Fragment() {
     }
 
     private fun subscribeUi(binding: FragmentEditExerciseBinding) {
+        binding.recommendedDurationPicker.minValue = 1
+        binding.recommendedDurationPicker.maxValue = 300
+        binding.intensityPicker.minValue = 1
+        binding.intensityPicker.maxValue = 10
         viewModel.baseExercise.observe(viewLifecycleOwner) { exercise ->
             binding.exercise = exercise
             binding.editExercisesImage.setImageResource(
                 exercise?.resourceId ?: R.drawable.icon_005_exercise
             )
+            if (exercise != null && exercise.recommendedDuration == 0) {
+                exercise.recommendedDuration = 30
+                binding.recommendedDurationPicker.value = 30
+                exercise.intensity = 3
+                binding.intensityPicker.value = 3
+            }
         }
         binding.save.setOnClickListener {
             if (viewModel.insertOrUpdateExercise()) {

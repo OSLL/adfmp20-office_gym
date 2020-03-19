@@ -20,7 +20,8 @@ class Accelerometer(
     private val maxDataPoints = 100
     private val TAG = "Accelerometer"
 
-    private var sensorManager: SensorManager = application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    private var sensorManager: SensorManager =
+        application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private var accelerometer: Sensor
 
     private var seriesX: MutableList<Double> = mutableListOf()

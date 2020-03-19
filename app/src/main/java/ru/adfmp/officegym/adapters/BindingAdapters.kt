@@ -1,12 +1,9 @@
 package ru.adfmp.officegym.adapters
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.text.format.DateUtils
 import android.view.View
-import android.widget.EditText
+import android.widget.NumberPicker
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -49,7 +46,8 @@ fun bindBaseTotalDuration(textView: TextView, exercises: List<Exercise>?) {
     val resources = textView.context.resources
     val text = resources.getString(
         R.string.time,
-        DateUtils.formatElapsedTime((exercises?.sumBy { exercise -> exercise.duration } ?: 0).toLong()).toString()
+        DateUtils.formatElapsedTime((exercises?.sumBy { exercise -> exercise.duration }
+            ?: 0).toLong()).toString()
     )
     textView.text = text
 }
@@ -79,6 +77,7 @@ fun bindRecommendedDuration(textView: TextView, recommendedDuration: Long) {
     textView.text = text
 }
 
+
 @BindingAdapter("intensity")
 fun bindIntensity(textView: TextView, intensity: Long) {
     val resources = textView.context.resources
@@ -86,105 +85,56 @@ fun bindIntensity(textView: TextView, intensity: Long) {
     textView.text = text
 }
 
-@BindingAdapter("editRecommendedDuration")
-fun bindEditRecommendedDuration(editText: EditText, recommendedDuration: Long) {
-    editText.setText(recommendedDuration.toString())
+@BindingAdapter("pickRecommendedDuration")
+fun bindPickRecommendedDuration(numberPicker: NumberPicker, recommendedDuration: Long) {
+    numberPicker.value = recommendedDuration.toInt()
 }
 
-@InverseBindingAdapter(attribute = "app:editRecommendedDuration")
-fun getEditRecommendedDuration(editText: EditText): Int {
-    var duration = 0
-    try {
-        duration = editText.text.toString().toInt()
-    } catch (nfe: NumberFormatException) {
-        Toast.makeText(editText.context, "Duration should be number!", Toast.LENGTH_SHORT).show()
-    }
-    return duration
+@InverseBindingAdapter(attribute = "pickRecommendedDuration")
+fun getPickRecommendedDuration(numberPicker: NumberPicker): Int {
+    return numberPicker.value
 }
 
-
-@BindingAdapter("editRecommendedDurationAttrChanged")
-fun editRecommendedDurationAttrChangedListener(
-    editText: EditText,
+@BindingAdapter("pickRecommendedDurationAttrChanged")
+fun pickRecommendedDurationAttrChangedListener(
+    numberPicker: NumberPicker,
     attrChange: InverseBindingListener
 ) {
-    editText.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            attrChange.onChange()
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-    })
+    numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
 }
 
-@BindingAdapter("editIntensity")
-fun bindEditIntensity(editText: EditText, intensity: Long) {
-    editText.setText(intensity.toString())
+@BindingAdapter("pickDuration")
+fun setDuration(numberPicker: NumberPicker, duration: Long) {
+    numberPicker.value = duration.toInt()
 }
 
-@InverseBindingAdapter(attribute = "editIntensity")
-fun getEditIntensity(editText: EditText): Int {
-    var intensity = 0
-    try {
-        intensity = editText.text.toString().toInt()
-    } catch (nfe: NumberFormatException) {
-        Toast.makeText(editText.context, "Intensity should be number!", Toast.LENGTH_SHORT).show()
-    }
-    return intensity
+@BindingAdapter("pickDurationAttrChanged", requireAll = false)
+fun pickDurationAttrChangedListener(
+    numberPicker: NumberPicker,
+    attrChange: InverseBindingListener
+) {
+    numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
 }
 
-@BindingAdapter("editIntensityAttrChanged")
-fun editIntensityAttrChangedListener(editText: EditText, attrChange: InverseBindingListener) {
-    editText.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            attrChange.onChange()
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-    })
+@InverseBindingAdapter(attribute = "pickDuration")
+fun getPickDuration(numberPicker: NumberPicker): Int {
+    return numberPicker.value
 }
 
-@BindingAdapter("editDuration")
-fun editDuration(editText: EditText, duration: Long) {
-    editText.setText(duration.toString())
+@BindingAdapter("pickIntensity")
+fun bindPickIntensity(numberPicker: NumberPicker, intensity: Long) {
+    numberPicker.value = intensity.toInt()
 }
 
-@InverseBindingAdapter(attribute = "editDuration")
-fun getEditDuration(editText: EditText): Int {
-    var duration = 0
-    try {
-        duration = editText.text.toString().toInt()
-    } catch (nfe: NumberFormatException) {
-        Toast.makeText(editText.context, "Duration should be number!", Toast.LENGTH_SHORT).show()
-    }
-    return duration
+@InverseBindingAdapter(attribute = "pickIntensity")
+fun getPickIntensity(numberPicker: NumberPicker): Int {
+    return numberPicker.value
 }
 
-@BindingAdapter("editDurationAttrChanged")
-fun editDurationAttrChangedListener(editText: EditText, attrChange: InverseBindingListener) {
-    editText.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            attrChange.onChange()
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            attrChange.onChange()
-        }
-    })
+@BindingAdapter("pickIntensityAttrChanged")
+fun pickIntensityAttrChangedListener(
+    numberPicker: NumberPicker,
+    attrChange: InverseBindingListener
+) {
+    numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
 }

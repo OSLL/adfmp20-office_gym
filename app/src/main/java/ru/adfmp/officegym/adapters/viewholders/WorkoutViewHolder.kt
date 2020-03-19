@@ -15,7 +15,9 @@ class WorkoutViewHolder(
     override fun bind(item: Workout) {
         binding.apply {
             workout = item
-            image.setImageResource(item.exercises.firstOrNull()?.resourceId ?: R.drawable.icon_005_exercise)
+            image.setImageResource(
+                item.exercises.firstOrNull()?.resourceId ?: R.drawable.icon_005_exercise
+            )
             root.setOnClickListener {
                 val direction = HomeFragmentDirections
                     .actionNavHomeToNavStartWorkoutFragment(item.workoutInfo.id)
