@@ -6,7 +6,7 @@ import org.junit.Test
 
 class ZeroStrategyTest {
 
-    lateinit var strategy: Zero
+    private lateinit var strategy: Zero
 
     @Before
     fun setUp() {

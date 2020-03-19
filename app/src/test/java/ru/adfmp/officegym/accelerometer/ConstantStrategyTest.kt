@@ -5,7 +5,7 @@ import org.junit.Before
 import org.junit.Test
 
 class ConstantStrategyTest {
-    lateinit var strategy: Constant
+    private lateinit var strategy: Constant
 
     @Before
     fun setUp() {

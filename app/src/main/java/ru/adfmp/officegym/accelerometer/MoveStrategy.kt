@@ -49,26 +49,28 @@ class Ignore : IStrategy {
 
 class Zero : IStrategy {
 
-    private val EPS = 2
-
     override fun check(data: List<Double>) =
         if (data.mean() < EPS) Pair(StrategyStatus.OK, 0) else Pair(StrategyStatus.STAY_STILL, 0)
+
+    companion object {
+        private const val EPS = 2
+    }
 }
 
 class Constant : IStrategy {
-
-    private val EPS = 2
 
     override fun check(data: List<Double>) =
         if (data.diff().mean() < EPS) Pair(
             StrategyStatus.OK,
             0
         ) else Pair(StrategyStatus.STAY_STILL, 0)
+
+    companion object {
+        private const val EPS = 2
+    }
 }
 
 class Wave(private val maxPeriod: Double, private val minAmplitude: Double) : IStrategy {
-
-    private val EPS = 10
 
     override fun check(data: List<Double>): Pair<StrategyStatus, Int> {
         var periods = mutableListOf<Double>()
@@ -102,5 +104,9 @@ class Wave(private val maxPeriod: Double, private val minAmplitude: Double) : IS
             }
             else -> Pair(StrategyStatus.STAY_STILL, periods.size / 4)
         }
+    }
+
+    companion object {
+        private const val EPS = 10
     }
 }

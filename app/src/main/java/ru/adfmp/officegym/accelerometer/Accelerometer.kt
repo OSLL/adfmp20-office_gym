@@ -6,7 +6,6 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.util.Log
 
 
 class Accelerometer(
@@ -17,8 +16,7 @@ class Accelerometer(
     private val callback: (status: StrategyStatus) -> Unit
 ) : SensorEventListener {
 
-    private val maxDataPoints = 100
-    private val TAG = "Accelerometer"
+    private val maxDataPoints = 200
 
     private var sensorManager: SensorManager =
         application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -61,11 +59,6 @@ class Accelerometer(
         val y = values[1]
         val z = values[2]
 
-        Log.d(TAG, "Update")
-        Log.d(TAG, "x = $x ")
-        Log.d(TAG, "y = $y ")
-        Log.d(TAG, "z = $z ")
-
         seriesX.add(x.toDouble())
         seriesY.add(y.toDouble())
         seriesZ.add(z.toDouble())
@@ -83,14 +76,11 @@ class Accelerometer(
     }
 
     private fun analyse() {
-        Log.d(TAG, "Analyse")
-
         val result =
             listOf(strategyX.check(seriesX), strategyY.check(seriesY), strategyZ.check(seriesZ))
         val status = result.map { pair -> pair.first }
         counter += result.sumBy { pair -> pair.second }
 
-        Log.d(TAG, "strategyX = ${result[0]}\nstrategyY = ${result[1]}\nstrategyZ = ${result[2]}\n")
         callback(status.sorted()[0])
     }
 }

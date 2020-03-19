@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         val fullScreenDestinations = setOf(R.id.navigation_run_workout_fragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when {
-                destination.id in fullScreenDestinations -> bottomNavigationModel.hideBottomNav()
+            when (destination.id) {
+                in fullScreenDestinations -> bottomNavigationModel.hideBottomNav()
                 else -> bottomNavigationModel.showBottomNav()
             }
         }

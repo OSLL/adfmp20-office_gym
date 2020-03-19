@@ -23,6 +23,7 @@ private fun resourceId(context: Context, name: String): Int {
     return id
 }
 
+@Suppress("BlockingMethodInNonBlockingContext")
 class SeedDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters

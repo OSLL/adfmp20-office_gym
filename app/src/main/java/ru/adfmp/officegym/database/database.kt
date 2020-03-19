@@ -117,7 +117,7 @@ data class Alarm(
 
 @DatabaseView(
     """
-    SELECT baseExercise.id AS base_id, exerciseInWorkout.id AS id, baseExercise.name, baseExercise.intensity,
+    SELECT baseExercise.id AS base_id, exerciseInWorkout.id AS id, baseExercise.name, baseExercise.description, baseExercise.intensity,
     baseExercise.recommended_duration, exerciseInWorkout.duration, exerciseInWorkout.workout_id, baseExercise.resource_id,
     baseExercise.strategy_x, baseExercise.phase_x, baseExercise.amplitude_x,
     baseExercise.strategy_y, baseExercise.phase_y, baseExercise.amplitude_y,
@@ -131,6 +131,7 @@ data class Exercise(
     val baseId: Long = 0,
     val id: Long = 0,
     val name: String?,
+    val description: String,
     var intensity: Int,
     @ColumnInfo(name = "recommended_duration")
     var recommendedDuration: Int,
