@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -20,7 +19,7 @@ import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.adfmp.officegym.adapters.viewholders.WorkoutViewHolder
+import java.lang.Thread.sleep
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -61,33 +60,45 @@ class EditExerciseTest {
             )
         )
         appCompatImageView.perform(click())
+
         Thread.sleep(1000)
-        onView(withId(R.id.edit_exercises_list))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<WorkoutViewHolder>(0, click()))
+        val constraintLayout = onView(
+            childAtPosition(
+                allOf(
+                    withId(R.id.edit_exercises_list),
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        1
+                    )
+                ),
+                0
+            )
+        )
+        constraintLayout.perform(click())
 
         val appCompatEditText = onView(
             allOf(
                 withId(R.id.edit_exercise_name), withText("Squat"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        2
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
                     ),
-                    0
+                    2
                 )
             )
         )
-        appCompatEditText.perform(scrollTo(), replaceText("Squat2"))
+        appCompatEditText.perform(replaceText("Squat2"))
 
         val appCompatEditText2 = onView(
             allOf(
                 withId(R.id.edit_exercise_name), withText("Squat2"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        2
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
                     ),
-                    0
+                    2
                 ),
                 isDisplayed()
             )
@@ -96,61 +107,17 @@ class EditExerciseTest {
 
         val appCompatEditText3 = onView(
             allOf(
-                withId(R.id.edit_exercise_duration), withText("20"),
+                withId(R.id.edit_exercise_name), withText("Squat2"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        1
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
                     ),
-                    1
+                    2
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("30"))
-
-        val appCompatEditText4 = onView(
-            allOf(
-                withId(R.id.edit_exercise_duration), withText("30"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        1
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText4.perform(closeSoftKeyboard())
-
-        val appCompatEditText5 = onView(
-            allOf(
-                withId(R.id.edit_exercise_intensity), withText("7"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        2
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatEditText5.perform(scrollTo(), replaceText("5"))
-
-        val appCompatEditText6 = onView(
-            allOf(
-                withId(R.id.edit_exercise_intensity), withText("5"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText6.perform(closeSoftKeyboard())
+        appCompatEditText3.perform(pressImeActionButton())
 
         val appCompatButton = onView(
             allOf(
@@ -164,8 +131,9 @@ class EditExerciseTest {
                 )
             )
         )
-        appCompatButton.perform(scrollTo(), click())
+        appCompatButton.perform(click())
 
+        sleep(1000)
         val textView = onView(
             allOf(
                 withId(R.id.exercise_name), withText("Squat2"),
@@ -183,7 +151,7 @@ class EditExerciseTest {
 
         val textView2 = onView(
             allOf(
-                withId(R.id.exercise_duration), withText("recommended duration: 30"),
+                withId(R.id.exercise_duration), withText("recommended duration: 20"),
                 childAtPosition(
                     childAtPosition(
                         IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
@@ -194,11 +162,11 @@ class EditExerciseTest {
                 isDisplayed()
             )
         )
-        textView2.check(matches(withText("recommended duration: 30")))
+        textView2.check(matches(withText("recommended duration: 20")))
 
         val textView3 = onView(
             allOf(
-                withId(R.id.exercise_intensity), withText("intensity: 5"),
+                withId(R.id.exercise_intensity), withText("intensity: 7"),
                 childAtPosition(
                     childAtPosition(
                         IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
@@ -209,7 +177,7 @@ class EditExerciseTest {
                 isDisplayed()
             )
         )
-        textView3.check(matches(withText("intensity: 5")))
+        textView3.check(matches(withText("intensity: 7")))
     }
 
     private fun childAtPosition(

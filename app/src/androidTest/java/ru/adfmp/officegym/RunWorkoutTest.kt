@@ -21,17 +21,16 @@ import org.junit.runner.RunWith
 import ru.adfmp.officegym.adapters.viewholders.WorkoutViewHolder
 import java.lang.Thread.sleep
 
-
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class RunWorkOutTest {
+class RunWorkoutTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(MainActivity::class.java, true, true)
+    var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun runWorkOutTest() {
+    fun runWorkoutTest() {
         sleep(1000)
         onView(withId(R.id.workout_list))
             .perform(RecyclerViewActions.actionOnItemAtPosition<WorkoutViewHolder>(0, click()))
@@ -85,6 +84,7 @@ class RunWorkOutTest {
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
     ): Matcher<View> {
+
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")
@@ -99,4 +99,3 @@ class RunWorkOutTest {
         }
     }
 }
-

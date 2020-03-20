@@ -98,7 +98,9 @@ class RunWorkoutFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()
         binding.timeText.text = ""
+        binding.muteButton.isEnabled = false
         audio = Audio(context!!) {
+            binding.muteButton.isEnabled = true
             makeAudio("${exercise.name!!}. ${exercise.description}..... Start!") {
                 MyVibrator.vibrate(context!!, MyVibrator.LENGTH_LONG)
                 timer?.start()
@@ -144,15 +146,19 @@ class RunWorkoutFragment : Fragment() {
         return PlayPauseTimer(
             millisInFuture = durationSeconds * MILLIS_IN_SECOND,
             onFinish = {
-                if (context == null) {
+                val onComplete = {
                     runWorkoutModel.exerciseCompleted()
                     next()
+                }
+                if (context == null) {
+                    onComplete()
                 } else {
                     Audio(context!!) {
                         MyVibrator.vibrate(context!!, MyVibrator.LENGTH_LONG)
-                        it.speak("Finish") {
-                            runWorkoutModel.exerciseCompleted()
-                            next()
+                        if (!mute) {
+                            it.speak("Finish", onComplete)
+                        } else {
+                            onComplete()
                         }
                     }
                 }
