@@ -1,6 +1,7 @@
 package ru.adfmp.officegym.adapters.callbacks
 
 import androidx.recyclerview.widget.DiffUtil
+import ru.adfmp.officegym.database.Alarm
 import ru.adfmp.officegym.database.BaseExercise
 import ru.adfmp.officegym.database.Exercise
 import ru.adfmp.officegym.database.Workout
@@ -27,4 +28,12 @@ class WorkoutDiffCallback : DiffUtil.ItemCallback<Workout>() {
         oldItem.workoutInfo.id == newItem.workoutInfo.id
 
     override fun areContentsTheSame(oldItem: Workout, newItem: Workout) = oldItem == newItem
+}
+
+class AlarmDiffCallback : DiffUtil.ItemCallback<Alarm>() {
+
+    override fun areItemsTheSame(oldItem: Alarm, newItem: Alarm) =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Alarm, newItem: Alarm) = oldItem == newItem
 }

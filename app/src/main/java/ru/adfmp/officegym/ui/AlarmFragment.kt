@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import ru.adfmp.officegym.adapters.AlarmAdapter
+import ru.adfmp.officegym.adapters.BaseAdapter
+import ru.adfmp.officegym.adapters.callbacks.AlarmDiffCallback
+import ru.adfmp.officegym.adapters.viewholders.AlarmViewHolder
+import ru.adfmp.officegym.adapters.viewholders.createAlarmViewHolder
+import ru.adfmp.officegym.database.Alarm
 import ru.adfmp.officegym.databinding.FragmentAlarmBinding
 import ru.adfmp.officegym.models.AlarmViewModel
 import ru.adfmp.officegym.utils.InjectorUtils
@@ -26,7 +30,7 @@ class AlarmFragment : Fragment() {
     ): View? {
         val binding = FragmentAlarmBinding.inflate(inflater, container, false)
         context ?: return binding.root
-        val adapter = AlarmAdapter()
+        val adapter = getAlarmAdapter()
         binding.alarmList.adapter = adapter
         subscribeUi(adapter)
 
@@ -34,8 +38,13 @@ class AlarmFragment : Fragment() {
         return binding.root
     }
 
-    private fun subscribeUi(adapter: AlarmAdapter) {
-        viewModel.alarms.observe(viewLifecycleOwner,
-            Observer { alarms -> adapter.submitList(alarms) })
+    private fun getAlarmAdapter() =
+        BaseAdapter(
+            { p -> createAlarmViewHolder(p) },
+            AlarmDiffCallback()
+        )
+
+    private fun subscribeUi(adapter: BaseAdapter<Alarm, AlarmViewHolder>) {
+        viewModel.alarms.observe(viewLifecycleOwner, Observer { alarms -> adapter.submitList(alarms) })
     }
 }
