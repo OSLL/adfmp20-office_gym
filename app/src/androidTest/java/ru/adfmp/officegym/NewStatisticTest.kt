@@ -58,6 +58,7 @@ class NewStatisticTest {
                 sleep(10)
             }
         }
+        sleep(1000)
         val appCompatImageButton = onView(
             allOf(
                 withId(R.id.mute_button), withContentDescription("NextExercise"),
@@ -105,10 +106,15 @@ class NewStatisticTest {
         bottomNavigationItemView.perform(click())
 
         val date = StatisticsRepository.dateToYearMonthDay(StatisticsRepository.currentDay())[2].toString()
+        sleep(1000)
         val dayView = onView(
             allOf(
-                withText(date),
-                isDisplayed()
+                withText(date), withContentDescription(date),
+                isDisplayed(), withParent(
+                    allOf(
+                        withContentDescription("Calendar"), childAtPosition(withId(R.id.mcv_pager), 0)
+                    )
+                )
             )
         )
         dayView.perform(click())
