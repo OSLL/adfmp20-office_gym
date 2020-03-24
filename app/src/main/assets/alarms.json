@@ -1,12 +1,10 @@
 [
   {
     "name": "Morning routine",
-    "workoutId" : 1,
-    "days": []
+    "workoutId" : 1
   },
   {
     "name": "Every single day, ha",
-    "workoutId" : 1,
-    "days" : []
+    "workoutId" : 1
   }
 ]

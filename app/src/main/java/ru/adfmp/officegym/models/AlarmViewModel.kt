@@ -6,5 +6,5 @@ import ru.adfmp.officegym.database.Alarm
 import ru.adfmp.officegym.database.repositories.AlarmRepository
 
 class AlarmViewModel(alarmRepository: AlarmRepository) : ViewModel() {
-    val alarms: LiveData<List<Alarm>> = alarmRepository.getAllAlarms()
+    val alarms: LiveData<List<Alarm?>> = alarmRepository.getAllAlarmViews()
 }

@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.adfmp.officegym.databinding.ActivityMainBinding
 import ru.adfmp.officegym.models.BottomNavigationViewModel
+import ru.adfmp.officegym.ui.HomeFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,5 +35,15 @@ class MainActivity : AppCompatActivity() {
                 else -> bottomNavigationModel.showBottomNav()
             }
         }
+
+        tryStartFromAlarm()
+    }
+
+    private fun tryStartFromAlarm() {
+        val intent = intent ?: return
+        val workoutId = intent.getLongExtra("workout_id", -1)
+        if (workoutId == -1L) return
+        val direction = HomeFragmentDirections.actionNavHomeToNavStartWorkoutFragment(workoutId)
+        findNavController(R.id.nav_host_fragment).navigate(direction)
     }
 }

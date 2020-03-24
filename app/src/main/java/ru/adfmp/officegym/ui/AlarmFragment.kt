@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import ru.adfmp.officegym.adapters.BaseAdapter
 import ru.adfmp.officegym.adapters.callbacks.AlarmDiffCallback
 import ru.adfmp.officegym.adapters.viewholders.AlarmViewHolder
@@ -32,19 +33,21 @@ class AlarmFragment : Fragment() {
         context ?: return binding.root
         val adapter = getAlarmAdapter()
         binding.alarmList.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi(adapter, binding)
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
     private fun getAlarmAdapter() =
-        BaseAdapter(
-            { p -> createAlarmViewHolder(p) },
-            AlarmDiffCallback()
-        )
+        BaseAdapter({ p -> createAlarmViewHolder(p) }, AlarmDiffCallback())
 
-    private fun subscribeUi(adapter: BaseAdapter<Alarm, AlarmViewHolder>) {
+    private fun subscribeUi(adapter: BaseAdapter<Alarm, AlarmViewHolder>, binding: FragmentAlarmBinding) {
         viewModel.alarms.observe(viewLifecycleOwner, Observer { alarms -> adapter.submitList(alarms) })
+        binding.addAlarmButton.setOnClickListener {
+            val direction = AlarmFragmentDirections
+                .actionNavAlarmToEditAlarmFragment()
+            it.findNavController().navigate(direction)
+        }
     }
 }

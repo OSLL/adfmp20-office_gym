@@ -21,6 +21,8 @@ class WorkoutRepository private constructor(private val gymDao: GymDao) {
 
     fun getWorkoutById(id: Long) = gymDao.getWorkoutById(id)
 
+    suspend fun getSuspendWorkoutById(id: Long) = gymDao.getSuspendWorkoutById(id)
+
     fun getEditableWorkoutById(id: Long): LiveData<Workout?> {
         if (id == 0L) {
             return MutableLiveData(Workout())

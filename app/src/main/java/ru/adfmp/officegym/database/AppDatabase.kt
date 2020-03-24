@@ -16,8 +16,8 @@ private const val DATABASE_NAME = "gym.db"
 
 @Database(
     entities = [BaseExercise::class, WorkoutInfo::class, ExerciseInWorkout::class,
-        Alarm::class, Statistic::class],
-    views = [Exercise::class],
+        BaseAlarm::class, Statistic::class],
+    views = [Exercise::class, Alarm::class],
     version = 1,
     exportSchema = false
 )

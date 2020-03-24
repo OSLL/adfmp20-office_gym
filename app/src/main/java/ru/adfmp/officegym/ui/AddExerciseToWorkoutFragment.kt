@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import ru.adfmp.officegym.adapters.BaseAdapter
 import ru.adfmp.officegym.adapters.callbacks.BaseExerciseDiffCallback
 import ru.adfmp.officegym.adapters.viewholders.AddExerciseToWorkoutViewHolder
-import ru.adfmp.officegym.adapters.viewholders.createAddExerciseInWorkoutViewHolder
+import ru.adfmp.officegym.adapters.viewholders.createAddExerciseToWorkoutViewHolder
 import ru.adfmp.officegym.database.BaseExercise
 import ru.adfmp.officegym.databinding.FragmentAddExerciseToWorkoutBinding
 import ru.adfmp.officegym.models.BaseExercisesViewModel
@@ -43,7 +43,7 @@ class AddExerciseToWorkoutFragment : Fragment() {
 
     private fun getBaseExerciseAdapter() =
         BaseAdapter(
-            { p -> createAddExerciseInWorkoutViewHolder(p, args.workoutId) },
+            { p -> createAddExerciseToWorkoutViewHolder(p, args.workoutId) },
             BaseExerciseDiffCallback()
         )
 

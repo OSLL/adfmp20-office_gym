@@ -1,10 +1,7 @@
 package ru.adfmp.officegym.adapters.callbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.adfmp.officegym.database.Alarm
-import ru.adfmp.officegym.database.BaseExercise
-import ru.adfmp.officegym.database.Exercise
-import ru.adfmp.officegym.database.Workout
+import ru.adfmp.officegym.database.*
 
 class ExerciseDiffCallback : DiffUtil.ItemCallback<Exercise>() {
 

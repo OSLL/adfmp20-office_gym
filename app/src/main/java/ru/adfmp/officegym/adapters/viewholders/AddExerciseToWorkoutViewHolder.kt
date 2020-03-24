@@ -30,7 +30,7 @@ class AddExerciseToWorkoutViewHolder(
     }
 }
 
-fun createAddExerciseInWorkoutViewHolder(parent: ViewGroup, workoutId: Long) =
+fun createAddExerciseToWorkoutViewHolder(parent: ViewGroup, workoutId: Long) =
     AddExerciseToWorkoutViewHolder(
         ListItemBaseExerciseBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
