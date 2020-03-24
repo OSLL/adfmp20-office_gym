@@ -136,11 +136,13 @@ class AppDatabaseTest {
     }
 
     @Test
-    fun getAlarmTest() = runBlocking {
-        val workout = buildWorkoutInfo()
-        gymDao.insert(workout)
+    fun getAlarmTest() {
+        runBlocking {
+            val workout = buildWorkoutInfo()
+            gymDao.insert(workout)
 
-        val alarm = buildAlarm(1, true)
-        gymDao.insert(alarm)
+            val alarm = buildAlarm(1, true)
+            gymDao.insert(alarm)
+        }
     }
 }

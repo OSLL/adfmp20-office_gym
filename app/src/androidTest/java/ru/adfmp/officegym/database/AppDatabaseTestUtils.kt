@@ -44,7 +44,8 @@ fun buildAlarm(workoutId: Long, repeat: Boolean): BaseAlarm {
         BaseAlarm(
             name = getRandomString(),
             workoutId = workoutId,
-            start = getRandomInt(),
+            start_h = getRandomInt(),
+            start_m = getRandomInt(),
             repeat = true,
             frequency = getRandomInt(),
             finish = getRandomInt()
@@ -52,7 +53,8 @@ fun buildAlarm(workoutId: Long, repeat: Boolean): BaseAlarm {
         BaseAlarm(
             name = getRandomString(),
             workoutId = workoutId,
-            start = getRandomInt(),
+            start_h = getRandomInt(),
+            start_m = getRandomInt(),
             repeat = false
         )
 }
