@@ -18,7 +18,7 @@ class Converters {
 
     @TypeConverter
     fun fromInt(value: Int): Map<DayOfWeek, Boolean> {
-        return DayOfWeek.values().associate { it to ((value shr it.value) % 2 == 0) }
+        return DayOfWeek.values().associate { it to ((value shr it.value) % 2 == 1) }
     }
 
     @TypeConverter
