@@ -12,12 +12,14 @@ class Audio(context: Context, private val onInit: (Audio) -> Unit = {}) :
 
     private val textToSpeech = TextToSpeech(context, this)
     private val callbacks = hashMapOf<String, () -> Unit>()
+    private var enabled = false
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val locale = Locale.ENGLISH
             if (textToSpeech.isLanguageAvailable(locale) == TextToSpeech.LANG_AVAILABLE) {
                 textToSpeech.language = locale
+                enabled = true
             }
             textToSpeech.setPitch(PITCH_RATE)
             textToSpeech.setSpeechRate(SPEECH_RATE)
@@ -27,6 +29,10 @@ class Audio(context: Context, private val onInit: (Audio) -> Unit = {}) :
     }
 
     fun speak(text: String, onFinish: () -> Unit = {}) {
+        if (!enabled) {
+            onFinish()
+            return
+        }
         val utteranceId = text.hashCode().toString()
         callbacks[utteranceId] = onFinish
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -100,8 +100,8 @@ class RunWorkoutFragment : Fragment() {
         binding.timeText.text = ""
         binding.muteButton.isEnabled = false
         audio = Audio(context!!) {
-            binding.muteButton.isEnabled = true
             makeAudio("${exercise.name!!}. ${exercise.description}..... Start!") {
+                binding.muteButton.isEnabled = true
                 MyVibrator.vibrate(context!!, MyVibrator.LENGTH_LONG)
                 timer?.start()
                 if (!isTimerPaused.value!!) {
