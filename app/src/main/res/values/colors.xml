@@ -7,6 +7,19 @@
     <color name="black">#de000000</color>
     <color name="background">#FFFFFF</color>
     <color name="yellow">#FFC107</color>
+    <color name="darkYellow">#B88A01</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#E0DFDF</color>
+
+    <color name="dayPressed">@color/darkYellow</color>
+    <color name="daySelected">@color/yellow</color>
+    <color name="daySelectedTextColor">@android:color/white</color>
+    <color name="dayDeselected">#FAFAFA</color>
+    <color name="dayDeselectedTextColor">@android:color/black</color>
+
+    <!-- Customizing colors for disabled days-->
+    <color name="daySelectedAndDisabled">#43444F</color>
+    <color name="daySelectedAndDisabledTextColor">@color/daySelectedTextColor</color>
+    <color name="dayDeselectedAndDisabled">@color/dayDeselected</color>
+    <color name="dayDeselectedAndDisabledTextColor">@android:color/darker_gray</color>
 </resources>

@@ -1,9 +1,11 @@
 package ru.adfmp.officegym.adapters.viewholders
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.navigation.findNavController
 import ru.adfmp.officegym.database.Alarm
 import ru.adfmp.officegym.databinding.ListItemAlarmBinding
-import android.view.ViewGroup
-import android.view.LayoutInflater
+import ru.adfmp.officegym.ui.AlarmFragmentDirections
 
 class AlarmViewHolder(
     private val binding: ListItemAlarmBinding
@@ -13,7 +15,9 @@ class AlarmViewHolder(
         binding.apply {
             alarm = item
             root.setOnClickListener {
-                //TODO: add navigation
+                val direction = AlarmFragmentDirections
+                    .actionNavAlarmToEditAlarmFragment(item.id, item.workoutId)
+                it.findNavController().navigate(direction)
             }
             executePendingBindings()
         }

@@ -101,16 +101,17 @@ data class Statistic(
     )],
     indices = [Index(value = ["name"], unique = true), Index("workout_id")]
 )
-data class Alarm(
+data class BaseAlarm(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    var name: String,
+    var name: String = "",
     @ColumnInfo(name = "workout_id")
-    val workoutId: Long,
+    var workoutId: Long = 0L,
     @TypeConverters(Converters::class)
     var days: Map<DayOfWeek, Boolean> = DayOfWeek.values().associate { it to false },
-    var start: Int,
-    var repeat: Boolean,
+    var start_h: Int = 0,
+    var start_m: Int = 0,
+    var repeat: Boolean = false,
     var frequency: Int? = null,
     var finish: Int? = null
 )
@@ -160,6 +161,32 @@ data class Exercise(
     val amplitudeZ: Double = 0.0
 )
 
+@DatabaseView(
+    """
+    SELECT baseAlarm.id AS id, baseAlarm.name AS name, baseAlarm.workout_id AS workout_id, workoutInfo.name AS workout_name
+    FROM baseAlarm
+    JOIN workoutInfo ON baseAlarm.workout_id = workoutInfo.id
+    """
+)
+@Entity(
+    foreignKeys = [ForeignKey(
+        entity = WorkoutInfo::class,
+        parentColumns = ["id"],
+        childColumns = ["workout_id"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["name"], unique = true), Index("workout_id")]
+)
+data class Alarm(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    var name: String?,
+    @ColumnInfo(name = "workout_id")
+    var workoutId: Long,
+    @ColumnInfo(name = "workout_name")
+    var workoutName: String?
+)
+
 @Dao
 interface GymDao {
 
@@ -200,6 +227,10 @@ interface GymDao {
     fun getWorkoutById(id: Long): LiveData<Workout?>
 
     @Transaction
+    @Query("SELECT * FROM WorkoutInfo WHERE id = :id")
+    suspend fun getSuspendWorkoutById(id: Long): Workout?
+
+    @Transaction
     @Query("SELECT * FROM WorkoutInfo")
     fun getAllWorkouts(): LiveData<List<Workout>>
 
@@ -222,20 +253,24 @@ interface GymDao {
     /** Alarm queries. */
 
     @Insert
-    suspend fun insert(vararg alarm: Alarm)
+    suspend fun insert(vararg baseAlarm: BaseAlarm): List<Long>
 
     @Update
-    suspend fun update(vararg alarm: Alarm)
+    suspend fun update(vararg baseAlarm: BaseAlarm): Int
 
     @Delete
-    suspend fun delete(alarm: Alarm)
+    suspend fun delete(baseAlarm: BaseAlarm)
 
-    @Query("SELECT * FROM Alarm WHERE id = :id")
-    fun getAlarmById(id: Long): LiveData<Alarm?>
+    @Query("SELECT * FROM BaseAlarm WHERE id = :id")
+    fun getAlarmById(id: Long): LiveData<BaseAlarm?>
+
+    @Transaction
+    @Query("SELECT * FROM BaseAlarm")
+    fun getAllAlarms(): LiveData<List<BaseAlarm>>
 
     @Transaction
     @Query("SELECT * FROM Alarm")
-    fun getAllAlarms(): LiveData<List<Alarm>>
+    fun getAllAlarmViews(): LiveData<List<Alarm?>>
 
 
     /** Statistic queries. */

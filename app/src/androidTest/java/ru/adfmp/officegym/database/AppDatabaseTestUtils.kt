@@ -39,9 +39,9 @@ fun buildWorkoutInfo() = WorkoutInfo(name = getRandomString())
 
 fun buildWorkoutInfo(count: Int) = List(count) { buildWorkoutInfo() }
 
-fun buildAlarm(workoutId: Long, repeat: Boolean): Alarm {
+fun buildAlarm(workoutId: Long, repeat: Boolean): BaseAlarm {
     return if (repeat)
-        Alarm(
+        BaseAlarm(
             name = getRandomString(),
             workoutId = workoutId,
             start = getRandomInt(),
@@ -49,7 +49,7 @@ fun buildAlarm(workoutId: Long, repeat: Boolean): Alarm {
             frequency = getRandomInt(),
             finish = getRandomInt()
         ) else
-        Alarm(
+        BaseAlarm(
             name = getRandomString(),
             workoutId = workoutId,
             start = getRandomInt(),

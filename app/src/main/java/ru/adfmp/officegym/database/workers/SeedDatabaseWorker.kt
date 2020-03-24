@@ -101,12 +101,12 @@ class SeedDatabaseWorker(
             }
             applicationContext.assets.open(ALARMS_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val alarmType = object : TypeToken<List<Alarm>>() {}.type
-                    val alarms: List<Alarm> = Gson().fromJson(jsonReader, alarmType)
-                    Log.i("SeedDatabaseWorker", "load ${alarms.size} alarms")
+                    val alarmType = object : TypeToken<List<BaseAlarm>>() {}.type
+                    val baseAlarms: List<BaseAlarm> = Gson().fromJson(jsonReader, alarmType)
+                    Log.i("SeedDatabaseWorker", "load ${baseAlarms.size} alarms")
 
                     val database = AppDatabase.getInstance(applicationContext)
-                    database.dao().insert(*alarms.toTypedArray())
+                    database.dao().insert(*baseAlarms.toTypedArray())
 
                     Result.success()
                 }

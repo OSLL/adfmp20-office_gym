@@ -7,13 +7,24 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import ca.antonious.materialdaypicker.MaterialDayPicker
 import ru.adfmp.officegym.R
 import ru.adfmp.officegym.database.Exercise
+import ru.adfmp.officegym.database.converters.Converters
 
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, id: Long) {
     view.visibility = if (id == 0L) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}
+
+@BindingAdapter("isVisible")
+fun bindIsVisible(view: View, id: Long) {
+    view.visibility = if (id != 0L) {
         View.GONE
     } else {
         View.VISIBLE
@@ -137,4 +148,89 @@ fun pickIntensityAttrChangedListener(
     attrChange: InverseBindingListener
 ) {
     numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
+}
+
+@BindingAdapter("pickHour")
+fun bindPickHour(numberPicker: NumberPicker, hour: Int) {
+    numberPicker.value = hour
+}
+
+@InverseBindingAdapter(attribute = "pickHour")
+fun getPickHour(numberPicker: NumberPicker): Int {
+    return numberPicker.value
+}
+
+@BindingAdapter("pickHourAttrChanged")
+fun pickHourAttrChangedListener(
+    numberPicker: NumberPicker,
+    attrChange: InverseBindingListener
+) {
+    numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
+}
+
+@BindingAdapter("pickMinute")
+fun bindPickMinute(numberPicker: NumberPicker, hour: Int) {
+    numberPicker.value = hour
+}
+
+@InverseBindingAdapter(attribute = "pickMinute")
+fun getPickMinute(numberPicker: NumberPicker): Int {
+    return numberPicker.value
+}
+
+@BindingAdapter("pickMinuteAttrChanged")
+fun pickDaysAttrChangedListener(
+    numberPicker: NumberPicker,
+    attrChange: InverseBindingListener
+) {
+    numberPicker.setOnValueChangedListener { _, _, _ -> attrChange.onChange() }
+}
+
+@BindingAdapter("pickDays")
+fun bindPickDays(dayPicker: MaterialDayPicker, days: Map<Converters.DayOfWeek, Boolean>) {
+    var selectedDays = mutableListOf<MaterialDayPicker.Weekday>()
+    if (days[Converters.DayOfWeek.MONDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.MONDAY)
+    }
+    if (days[Converters.DayOfWeek.TUESDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.TUESDAY)
+    }
+    if (days[Converters.DayOfWeek.WEDNESDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.WEDNESDAY)
+    }
+    if (days[Converters.DayOfWeek.THURSDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.THURSDAY)
+    }
+    if (days[Converters.DayOfWeek.FRIDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.FRIDAY)
+    }
+    if (days[Converters.DayOfWeek.SATURDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.SATURDAY)
+    }
+    if (days[Converters.DayOfWeek.SUNDAY]!!) {
+        selectedDays.add(MaterialDayPicker.Weekday.SUNDAY)
+    }
+    dayPicker.setSelectedDays(selectedDays)
+}
+
+@InverseBindingAdapter(attribute = "pickDays")
+fun getPickDays(dayPicker: MaterialDayPicker): Map<Converters.DayOfWeek, Boolean> {
+    var days = mutableMapOf<Converters.DayOfWeek, Boolean>()
+    days[Converters.DayOfWeek.MONDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.MONDAY)
+    days[Converters.DayOfWeek.TUESDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.TUESDAY)
+    days[Converters.DayOfWeek.WEDNESDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.WEDNESDAY)
+    days[Converters.DayOfWeek.THURSDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.THURSDAY)
+    days[Converters.DayOfWeek.FRIDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.FRIDAY)
+    days[Converters.DayOfWeek.SATURDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.SATURDAY)
+    days[Converters.DayOfWeek.SUNDAY] = dayPicker.isSelected(MaterialDayPicker.Weekday.SUNDAY)
+    return days
+}
+
+
+@BindingAdapter("pickDaysAttrChanged")
+fun pickDaysAttrChangedListener(
+    numberPicker: MaterialDayPicker,
+    attrChange: InverseBindingListener
+) {
+    numberPicker.setDaySelectionChangedListener { list: List<MaterialDayPicker.Weekday> -> attrChange.onChange() }
 }

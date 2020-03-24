@@ -94,4 +94,8 @@ object InjectorUtils {
 
     fun provideStatisticsViewModelFactory(fragment: Fragment) =
         StatisticsViewModelFactory(getStatisticsRepository(fragment.requireContext()))
+
+    fun provideEditAlarmViewModelFactory(fragment: Fragment, alarmId: Long, workoutId: Long) =
+        EditAlarmViewModelFactory(getAlarmRepository(fragment.requireContext()),
+            getWorkoutRepository(fragment.requireContext()), alarmId, workoutId)
 }
